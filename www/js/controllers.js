@@ -18,23 +18,23 @@ productsControllers.controller('productController', [
 	  $scope.create = function () {
 	    productService.create($scope.product);
 	    $scope.products = productService.list();
-	    $state.go('tab.product-list');
+	    $state.go('product-list');
 	  }
 
 	  $scope.update = function () {
 	    productService.update($scope.product);
 	    $scope.products = productService.list();
-	    $state.go('tab.product-list');
+	    $state.go('product-list');
 	  }
 
 	  $scope.delete = function () {
 	    productService.delete($scope.product);
 	    $scope.products = productService.list();
-	    $state.go('tab.product-list');
+	    $state.go('product-list');
 	  }
 
 	  $scope.cancel = function () {
-	    $state.go('tab.product-list');
+	    $state.go('product-list');
 	  }
 
 	  $scope.$on('$stateChangeSuccess', function() {

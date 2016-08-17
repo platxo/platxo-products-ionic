@@ -12,6 +12,21 @@ productsRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateP
       templateUrl: 'templates/product/product-detail.html',
       controller: 'productController'
     })
+    .state('product-create', {
+      url: '/product-create',
+      templateUrl: 'templates/product/product-create.html',
+      controller: 'productController'
+    })
+    .state('product-update', {
+      url: '/product-update/:id',
+      templateUrl: 'templates/product/product-update.html',
+      controller: 'productController'
+    })
+    .state('product-delete', {
+      url: '/product-delete/:id',
+      templateUrl: 'templates/product/product-delete.html',
+      controller: 'productController'
+    })
 
   $urlRouterProvider.otherwise('/product-list');
 
