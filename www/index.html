@@ -29,7 +29,10 @@
       <ion-header-bar class="bar-stable">
         <h1 class="title">Platxo Products</h1>
       </ion-header-bar>
-      <ion-content>
+      <ion-content ng-controller="productController">
+        <div ng-repeat="product in products">
+          <div>{{ product.name }}</div>
+        </div>
       </ion-content>
     </ion-pane>
   </body>
