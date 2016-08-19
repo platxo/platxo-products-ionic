@@ -1,8 +1,13 @@
 <ion-view view-title="Product List">
+
+	<ion-nav-buttons side="left">
+		<button ui-sref="tab.product-create" class="button icon ion-android-add-circle"></button>
+	</ion-nav-buttons>
+
 	<ion-content padding="true">
 		<ion-list>
-			<ion-item ui-sref="product-detail({ id: product.id })" ng-repeat="product in products">
-				{{ product.name }}
+			<ion-item ui-sref="tab.product-detail({ id: product.id })" ng-repeat="product in products">
+				<h2>{{ product.name }}</h2>
 			</ion-item>
 		</ion-list>
 	</ion-content>

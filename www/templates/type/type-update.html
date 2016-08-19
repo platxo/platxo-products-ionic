@@ -1,6 +1,11 @@
 <ion-view view-title="Types Create">
   <ion-content padding="true">
     <form ng-submit="update()" class="list">
+      <label class="item item-input item-select">
+        <span class="input-label">Category</span>
+          <option ng-repeat="category in categories" value="{{category.url}}">{{category.name}}</option>
+        </select>
+      </label>
       <label class="item item-input">
         <span class="input-label">Name</span>
         <input ng-model="type.name" type="text" placeholder="" value="">

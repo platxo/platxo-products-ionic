@@ -1,8 +1,13 @@
 <ion-view view-title="Category List">
+
+  <ion-nav-buttons side="left">
+    <button ui-sref="tab.category-create" class="button icon ion-android-add-circle"></button>
+  </ion-nav-buttons>
+
 	<ion-content padding="true">
 		<ion-list>
-			<ion-item ui-sref="category-detail({ id: category.id })" ng-repeat="category in categories">
-				{{ category.name }}
+			<ion-item ui-sref="tab.category-detail({ id: category.id })" ng-repeat="category in categories">
+				<h2>{{ category.name }}</h2>
 			</ion-item>
 		</ion-list>
 	</ion-content>

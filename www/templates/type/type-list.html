@@ -1,8 +1,13 @@
 <ion-view view-title="Type List">
+  
+  <ion-nav-buttons side="left">
+    <button ui-sref="tab.type-create" class="button icon ion-android-add-circle"></button>
+  </ion-nav-buttons>
+  
 	<ion-content padding="true">
 		<ion-list>
-			<ion-item ui-sref="type-detail({ id: type.id })" ng-repeat="type in types">
-				{{ type.name }}
+			<ion-item ui-sref="tab.type-detail({ id: type.id })" ng-repeat="type in types">
+				<h2>{{ type.name }}</h2>
 			</ion-item>
 		</ion-list>
 	</ion-content>

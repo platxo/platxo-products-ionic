@@ -24,23 +24,23 @@ productsControllers.controller('productController', [
 	  $scope.create = function () {
 	    productService.create($scope.product);
 	    $scope.products = productService.list();
-	    $state.go('product-list');
+	    $state.go('tab.product-list');
 	  }
 
 	  $scope.update = function () {
 	    productService.update($scope.product);
 	    $scope.products = productService.list();
-	    $state.go('product-list');
+	    $state.go('tab.product-list');
 	  }
 
 	  $scope.delete = function () {
 	    productService.delete($scope.product);
 	    $scope.products = productService.list();
-	    $state.go('product-list');
+	    $state.go('tab.product-list');
 	  }
 
 	  $scope.cancel = function () {
-	    $state.go('product-list');
+	    $state.go('tab.product-list');
 	  }
 
 	  $scope.$on('$stateChangeSuccess', function() {
@@ -67,23 +67,23 @@ productsControllers.controller('categoryController', [
 	  $scope.create = function () {
 	    categoryService.create($scope.category);
 	    $scope.categories = categoryService.list();
-	    $state.go('category-list');
+	    $state.go('tab.category-list');
 	  }
 
 	  $scope.update = function () {
 	    categoryService.update($scope.category);
 	    $scope.categories = categoryService.list();
-	    $state.go('category-list');
+	    $state.go('tab.category-list');
 	  }
 
 	  $scope.delete = function () {
 	    categoryService.delete($scope.category);
 	    $scope.categories = categoryService.list();
-	    $state.go('category-list');
+	    $state.go('tab.category-list');
 	  }
 
 	  $scope.cancel = function () {
-	    $state.go('category-list');
+	    $state.go('tab.category-list');
 	  }
 
 	  $scope.$on('$stateChangeSuccess', function() {
@@ -114,23 +114,23 @@ productsControllers.controller('typeController', [
 	  $scope.create = function () {
 	    typeService.create($scope.type);
 	    $scope.types = typeService.list();
-	    $state.go('type-list');
+	    $state.go('tab.type-list');
 	  }
 
 	  $scope.update = function () {
 	    typeService.update($scope.type);
 	    $scope.types = typeService.list();
-	    $state.go('type-list');
+	    $state.go('tab.type-list');
 	  }
 
 	  $scope.delete = function () {
 	    typeService.delete($scope.type);
 	    $scope.types = typeService.list();
-	    $state.go('type-list');
+	    $state.go('tab.type-list');
 	  }
 
 	  $scope.cancel = function () {
-	    $state.go('type-list');
+	    $state.go('tab.type-list');
 	  }
 
 	  $scope.$on('$stateChangeSuccess', function() {

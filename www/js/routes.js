@@ -2,87 +2,152 @@ var productsRoutes = angular.module('productsRoutes', []);
 
 productsRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $stateProvider
+    .state('tab', {
+      url: '/tab',
+      abstract: true,
+      templateUrl: 'templates/tabs.html'
+    })
     // Products
-  	.state('product-list', {
+  	.state('tab.product-list', {
   	  url: '/product-list',
-      templateUrl: 'templates/product/product-list.html',
-      controller: 'productController'
+      views: {
+        'tab-products': {
+          templateUrl: 'templates/product/product-list.html',
+          controller: 'productController'
+        }
+      }
   	})
-  	.state('product-detail', {
+  	.state('tab.product-detail', {
       url: '/product-detail/:id',
-      templateUrl: 'templates/product/product-detail.html',
-      controller: 'productController'
+      views: {
+        'tab-products': {
+          templateUrl: 'templates/product/product-detail.html',
+          controller: 'productController'
+        }
+      }
     })
-    .state('product-create', {
+    .state('tab.product-create', {
       url: '/product-create',
-      templateUrl: 'templates/product/product-create.html',
-      controller: 'productController'
+      views: {
+        'tab-products': {
+          templateUrl: 'templates/product/product-create.html',
+          controller: 'productController'
+        }
+      }
     })
-    .state('product-update', {
+    .state('tab.product-update', {
       url: '/product-update/:id',
-      templateUrl: 'templates/product/product-update.html',
-      controller: 'productController'
+      views: {
+        'tab-products': {
+          templateUrl: 'templates/product/product-update.html',
+          controller: 'productController'
+        }
+      }
     })
-    .state('product-delete', {
+    .state('tab.product-delete', {
       url: '/product-delete/:id',
-      templateUrl: 'templates/product/product-delete.html',
-      controller: 'productController'
+      views: {
+        'tab-products': {
+          templateUrl: 'templates/product/product-delete.html',
+          controller: 'productController'
+        }
+      }
     })
 
     // Categories
-    .state('category-list', {
+    .state('tab.category-list', {
       url: '/category-list',
-      templateUrl: 'templates/category/category-list.html',
-      controller: 'categoryController'
+      views: {
+        'tab-categories': {
+          templateUrl: 'templates/category/category-list.html',
+          controller: 'categoryController'
+        }
+      }
     })
-    .state('category-detail', {
+    .state('tab.category-detail', {
       url: '/category-detail/:id',
-      templateUrl: 'templates/category/category-detail.html',
-      controller: 'categoryController'
+      views: {
+        'tab-categories': {
+          templateUrl: 'templates/category/category-detail.html',
+          controller: 'categoryController'
+        }
+      }
     })
-    .state('category-create', {
+    .state('tab.category-create', {
       url: '/category-create',
-      templateUrl: 'templates/category/category-create.html',
-      controller: 'categoryController'
+      views: {
+        'tab-categories': {
+          templateUrl: 'templates/category/category-create.html',
+          controller: 'categoryController'
+        }
+      }
     })
-    .state('category-update', {
+    .state('tab.category-update', {
       url: '/category-update/:id',
-      templateUrl: 'templates/category/category-update.html',
-      controller: 'categoryController'
+      views: {
+        'tab-categories': {
+          templateUrl: 'templates/category/category-update.html',
+          controller: 'categoryController'
+        }
+      }
     })
-    .state('category-delete', {
+    .state('tab.category-delete', {
       url: '/category-delete/:id',
-      templateUrl: 'templates/category/category-delete.html',
-      controller: 'categoryController'
+      views: {
+        'tab-categories': {
+          templateUrl: 'templates/category/category-delete.html',
+          controller: 'categoryController'
+        }
+      }
     })
 
     // Types
-    .state('type-list', {
+    .state('tab.type-list', {
       url: '/type-list',
-      templateUrl: 'templates/type/type-list.html',
-      controller: 'typeController'
+      views: {
+        'tab-types': {
+          templateUrl: 'templates/type/type-list.html',
+          controller: 'typeController'
+        }
+      }
     })
-    .state('type-detail', {
+    .state('tab.type-detail', {
       url: '/type-detail/:id',
-      templateUrl: 'templates/type/type-detail.html',
-      controller: 'typeController'
+      views: {
+        'tab-types': {
+          templateUrl: 'templates/type/type-detail.html',
+          controller: 'typeController'
+        }
+      }
     })
-    .state('type-create', {
+    .state('tab.type-create', {
       url: '/type-create',
-      templateUrl: 'templates/type/type-create.html',
-      controller: 'typeController'
+      views: {
+        'tab-types': {
+          templateUrl: 'templates/type/type-create.html',
+          controller: 'typeController'
+        }
+      }
     })
-    .state('type-update', {
+    .state('tab.type-update', {
       url: '/type-update/:id',
-      templateUrl: 'templates/type/type-update.html',
-      controller: 'typeController'
+      views: {
+        'tab-types': {
+          templateUrl: 'templates/type/type-update.html',
+          controller: 'typeController'
+        }
+      }
     })
-    .state('type-delete', {
+    .state('tab.type-delete', {
       url: '/type-delete/:id',
-      templateUrl: 'templates/type/type-delete.html',
-      controller: 'typeController'
+      views: {
+        'tab-types': {
+          templateUrl: 'templates/type/type-delete.html',
+          controller: 'typeController'
+        }
+      }
     })
 
-  $urlRouterProvider.otherwise('/product-list');
+  $urlRouterProvider.otherwise('/tab/product-list');
 
 }]);
