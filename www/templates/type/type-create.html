@@ -1,0 +1,17 @@
+<ion-view view-title="Type Create">
+	<ion-content padding="true">
+		<form ng-submit="create()" class="list">
+      <label class="item item-input item-select">
+        <span class="input-label">Category</span>
+        <select ng-model="type.category">
+          <option ng-repeat="category in categories" value="{{category.url}}">{{category.name}}</option>
+        </select>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Name</span>
+        <input ng-model="type.name" type="text" placeholder="" value="">
+      </label>
+      <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
+    </form>
+	</ion-content>
+</ion-view>

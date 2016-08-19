@@ -1,7 +1,9 @@
 <ion-view view-title="Product List">
 	<ion-content padding="true">
-		<div ng-repeat="product in products">
-			<div ui-sref="product-detail({ id: product.id })">{{ product.name }}</div>
-		</div>
+		<ion-list>
+			<ion-item ui-sref="product-detail({ id: product.id })" ng-repeat="product in products">
+				{{ product.name }}
+			</ion-item>
+		</ion-list>
 	</ion-content>
 </ion-view>

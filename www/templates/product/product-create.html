@@ -1,6 +1,18 @@
 <ion-view view-title="Product Create">
 	<ion-content padding="true">
 		<form ng-submit="create()" class="list">
+      <label class="item item-input item-select">
+        <span class="input-label">Category</span>
+        <select ng-model="product.category">
+          <option ng-repeat="category in categories" value="{{category.url}}">{{category.name}}</option>
+        </select>
+      </label>
+      <label class="item item-input item-select">
+        <span class="input-label">Type</span>
+        <select ng-model="product.type">
+          <option ng-repeat="type in types" value="{{type.url}}">{{type.name}}</option>
+        </select>
+      </label>
       <label class="item item-input">
         <span class="input-label">Name</span>
         <input ng-model="product.name" type="text" placeholder="" value="">

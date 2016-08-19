@@ -1,0 +1,9 @@
+<ion-view view-title="Category List">
+	<ion-content padding="true">
+		<ion-list>
+			<ion-item ui-sref="category-detail({ id: category.id })" ng-repeat="category in categories">
+				{{ category.name }}
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>
