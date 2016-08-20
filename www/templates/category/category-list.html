@@ -6,8 +6,13 @@
 
 	<ion-content padding="true">
 		<ion-list>
-			<ion-item ui-sref="tab.category-detail({ id: category.id })" ng-repeat="category in categories">
+			<ion-item ui-sref="tab.category-detail({ id: category.id })" ng-repeat="category in categories" class="item item-button-right item-thumbnail-left">
 				<h2>{{ category.name }}</h2>
+
+				<div class="buttons">
+				  <ion-option-button ui-sref="tab.category-update({id: category.id})" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
+				  <ion-option-button ui-sref="tab.category-delete({id: category.id})" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>
+				</div>
 			</ion-item>
 		</ion-list>
 	</ion-content>
