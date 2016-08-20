@@ -6,9 +6,15 @@
 var products = angular.module('products', [
   'ionic',
   'ngCordova',
-  'productsControllers',
-  'productsServices',
-  'productsRoutes'
+  'categoryControllers',
+  'typeControllers',
+  'productControllers',
+  'categoryServices',
+  'typeServices',
+  'productServices',
+  'categoryRoutes',
+  'typeRoutes',
+  'productRoutes'
 ])
 
 products.run(function($ionicPlatform) {
