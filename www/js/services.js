@@ -3,8 +3,8 @@ var productsServices = angular.module('productsServices', ['ngResource']);
 var version = 'http://development.'
 var baseUrl = 'platxo-bi.appspot.com';
 var productsUrl = '/api/products/';
-var categoriesUrl = '/api/categories/';
-var typesUrl = '/api/types/';
+var categoriesUrl = '/api/product_categories/';
+var typesUrl = '/api/product_types/';
 
 productsServices.service('productService', [ '$resource', function ($resource) {
   return $resource(version + baseUrl + productsUrl +':id/?format=json', {id: '@id'},{

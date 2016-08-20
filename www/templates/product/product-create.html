@@ -3,13 +3,13 @@
 		<form ng-submit="create()" class="list">
       <label class="item item-input item-select">
         <span class="input-label">Category</span>
-        <select ng-model="product.category">
+        <select ng-model="product.product_category">
           <option ng-repeat="category in categories" value="{{category.url}}">{{category.name}}</option>
         </select>
       </label>
       <label class="item item-input item-select">
         <span class="input-label">Type</span>
-        <select ng-model="product.type">
+        <select ng-model="product.product_type">
           <option ng-repeat="type in types" value="{{type.url}}">{{type.name}}</option>
         </select>
       </label>
