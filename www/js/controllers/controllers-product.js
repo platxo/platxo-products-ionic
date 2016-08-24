@@ -7,13 +7,15 @@ productControllers.controller('productController', [
   'productService',
   'categoryService',
   'typeService',
+  '$ionicModal',
   function(
     $scope,
     $stateParams,
     $state,
     productService,
     categoryService,
-    typeService
+    typeService,
+    $ionicModal
   )
   {
 	  $scope.products = productService.list();
@@ -42,6 +44,59 @@ productControllers.controller('productController', [
 	  $scope.cancel = function () {
 	    $state.go('tab.product-list');
 	  }
+
+    //Modal select category
+    $ionicModal.fromTemplateUrl('templates/product/select-category.html', {
+      scope: $scope,
+      controller: 'productController',
+      animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
+      focusFirstInput: true
+    }).then(function(modal) {
+      $scope.categoryModal = modal;
+    });
+    $scope.categoryOpenModal = function() {
+      $scope.categoryModal.show();
+    };
+    $scope.categoryCloseModal = function() {
+      $scope.categoryModal.hide();
+    };
+    // Cleanup the modal when we're done with it! detecta cambios
+    $scope.$on('$destroy', function() {
+      $scope.categoryModal.remove();
+    });
+
+    $scope.selectCategory = function(category) {
+      $scope.product.category = category.name;
+      $scope.product.product_category = category.url;
+      $scope.categoryModal.hide();
+    };
+
+    //Modal select category
+    $ionicModal.fromTemplateUrl('templates/product/select-type.html', {
+      scope: $scope,
+      controller: 'productController',
+      animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
+      focusFirstInput: true
+    }).then(function(modal) {
+      $scope.typeModal = modal;
+    });
+    $scope.typeOpenModal = function() {
+      $scope.typeModal.show();
+    };
+    $scope.typeCloseModal = function() {
+      $scope.typeModal.hide();
+    };
+    // Cleanup the modal when we're done with it! detecta cambios
+    $scope.$on('$destroy', function() {
+      $scope.typeModal.remove();
+    });
+
+    $scope.selectType = function(type) {
+      debugger
+      $scope.product.type = type.name;
+      $scope.product.product_type = type.url;
+      $scope.typeModal.hide();
+    };
 
 	  $scope.$on('$stateChangeSuccess', function() {
 	    $scope.products = productService.list();

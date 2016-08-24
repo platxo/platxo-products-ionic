@@ -6,12 +6,14 @@ typeControllers.controller('typeController', [
   '$state',
   'typeService',
   'categoryService',
+  '$ionicModal',
   function(
     $scope,
     $stateParams,
     $state,
     typeService,
-    categoryService
+    categoryService,
+    $ionicModal
   )
   {
 	  $scope.types = typeService.list();
@@ -39,6 +41,32 @@ typeControllers.controller('typeController', [
 	  $scope.cancel = function () {
 	    $state.go('tab.type-list');
 	  }
+
+    //Modal select category
+    $ionicModal.fromTemplateUrl('templates/type/select-category.html', {
+      scope: $scope,
+      controller: 'typeController',
+      animation: 'slide-in-up',//'slide-left-right', 'slide-in-up', 'slide-right-left'
+      focusFirstInput: true
+    }).then(function(modal) {
+      $scope.categoryModal = modal;
+    });
+    $scope.categoryOpenModal = function() {
+      $scope.categoryModal.show();
+    };
+    $scope.categoryCloseModal = function() {
+      $scope.categoryModal.hide();
+    };
+    // Cleanup the modal when we're done with it! detecta cambios
+    $scope.$on('$destroy', function() {
+      $scope.categoryModal.remove();
+    });
+
+    $scope.selectCategory = function(category) {
+      $scope.type.category = category.name;
+      $scope.type.product_category = category.url;
+      $scope.categoryModal.hide();
+    };
 
 	  $scope.$on('$stateChangeSuccess', function() {
 	    $scope.types = typeService.list();
