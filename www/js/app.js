@@ -14,7 +14,10 @@ var products = angular.module('products', [
   'productServices',
   'categoryRoutes',
   'typeRoutes',
-  'productRoutes'
+  'productRoutes',
+  'authControllers',
+  'authServices',
+  'authRoutes'
 ])
 
 products.run(function($ionicPlatform) {
@@ -33,4 +36,16 @@ products.run(function($ionicPlatform) {
       StatusBar.styleDefault();
     }
   });
+})
+
+.directive('hideTabs', function($rootScope) {
+  return {
+    restrict: 'A',
+    link: function($scope, $el) {
+      $rootScope.hideTabs = 'tabs-item-hide';
+      $scope.$on('$destroy', function() {
+        $rootScope.hideTabs = '';
+      });
+    }
+  };
 })

@@ -1,12 +1,7 @@
 var productRoutes = angular.module('productRoutes', []);
 
 productRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-  $stateProvider
-    .state('tab', {
-      url: '/tab',
-      abstract: true,
-      templateUrl: 'templates/tabs.html'
-    })
+  $stateProvider    
   	.state('tab.product-list', {
   	  url: '/product-list',
       views: {

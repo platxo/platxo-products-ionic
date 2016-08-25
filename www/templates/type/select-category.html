@@ -1,0 +1,15 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-balanced">
+    <h1 class="title">Select Category</h1><button class="button icon ion-android-cancel" ng-click="categoryCloseModal()"></button>
+  </ion-header-bar>
+  <ion-content padding="true">
+    <ion-radio
+      ng-repeat="category in categories | orderBy:'name'"
+      ng-model="type.category"
+      ng-click="selectCategory(category)"
+      ng-value="category.url"
+      name="{{category.name}}">
+      {{category.name}}
+    </ion-radio>
+  </ion-content>
+</ion-modal-view> 

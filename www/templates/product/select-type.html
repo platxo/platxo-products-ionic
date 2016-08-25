@@ -1,0 +1,15 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-balanced">
+    <h1 class="title">Select Type</h1><button class="button icon ion-android-cancel" ng-click="typeCloseModal()"></button>
+  </ion-header-bar>
+  <ion-content padding="true">
+    <ion-radio
+      ng-repeat="type in types | orderBy:'name'"
+      ng-model="product.type"
+      ng-click="selectType(type)"
+      ng-value="type.url"
+      name="{{type.name}}">
+      {{type.name}}
+    </ion-radio>
+  </ion-content>
+</ion-modal-view> 
