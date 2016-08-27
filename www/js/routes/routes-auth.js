@@ -7,16 +7,17 @@ authRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       abstract: true,
       templateUrl: 'templates/tabs.html'
     })    
-    .state('tab.auth-signup', {
+    .state('signup', {
       url: '/signup',
-      views: {
-        'tab-signup': {
-          templateUrl: 'templates/auth/auth-signup.html',
-          controller: 'signupController'
-        }
-      }
+      templateUrl: 'templates/auth/auth-signup.html',
+      controller: 'signupController'
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: 'templates/auth/auth-login.html',
+      controller: 'loginController'
     })
 
-  $urlRouterProvider.otherwise('/tab/signup');
+  $urlRouterProvider.otherwise('/login');
 
 }]);

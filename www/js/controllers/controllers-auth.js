@@ -36,3 +36,40 @@ authControllers.controller('signupController', [
 
   }
 ]);
+
+authControllers.controller('loginController', [
+  '$scope',
+  '$stateParams',
+  '$state',
+  'loginService',
+  '$ionicModal',
+  function(
+    $scope,
+    $stateParams,
+    $state,
+    loginService,
+    $ionicModal
+  )
+  {
+    $scope.user = {}
+
+    $scope.create = function () {
+      loginService.create($scope.user)
+        .$promise
+          .then(function (response) {
+            // $rootScope.login = true;
+            $scope.user = {};
+            $state.go('tab.product-list');
+          }, function (reason) {
+            // $rootScope.login = false;
+            $scope.user = {};
+            $scope.errors = reason;
+          })
+    }
+
+    $scope.cancel = function () {
+      $state.go('tab.product-list');
+    }
+
+  }
+]);
