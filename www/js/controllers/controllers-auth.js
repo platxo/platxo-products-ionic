@@ -43,12 +43,14 @@ authControllers.controller('loginController', [
   '$state',
   'loginService',
   '$ionicModal',
+  '$rootScope',
   function(
     $scope,
     $stateParams,
     $state,
     loginService,
-    $ionicModal
+    $ionicModal,
+    $rootScope
   )
   {
     $scope.user = {}
@@ -57,11 +59,13 @@ authControllers.controller('loginController', [
       loginService.create($scope.user)
         .$promise
           .then(function (response) {
-            // $rootScope.login = true;
+            $rootScope.token = response.token;
+            localStorage.setItem("token", JSON.stringify($rootScope.token));
+            $rootScope.isLogin = true;
             $scope.user = {};
             $state.go('tab.product-list');
           }, function (reason) {
-            // $rootScope.login = false;
+            $rootScope.isLogin = false;
             $scope.user = {};
             $scope.errors = reason;
           })

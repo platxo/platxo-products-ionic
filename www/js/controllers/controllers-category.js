@@ -5,11 +5,13 @@ categoryControllers.controller('categoryController', [
   '$stateParams',
   '$state',
   'categoryService',
+  '$rootScope',
   function(
     $scope,
     $stateParams,
     $state,
-    categoryService
+    categoryService,
+    $rootScope
   )
   {
 	  $scope.categories = categoryService.list();

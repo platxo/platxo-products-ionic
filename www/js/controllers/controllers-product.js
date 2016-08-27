@@ -18,10 +18,10 @@ productControllers.controller('productController', [
     $ionicModal
   )
   {
-	  $scope.products = productService.list();
-	  $scope.product = productService.detail({id: $stateParams.id});
-	  $scope.categories = categoryService.list();
-	  $scope.types = typeService.list();
+    $scope.products = productService.list();
+    $scope.product = productService.detail({id: $stateParams.id});
+    $scope.categories = categoryService.list();
+    $scope.types = typeService.list();
 
 	  $scope.create = function () {
 	    productService.create($scope.product);
