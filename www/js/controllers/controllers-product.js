@@ -8,6 +8,7 @@ productControllers.controller('productController', [
   'categoryService',
   'typeService',
   '$ionicModal',
+  '$rootScope',
   function(
     $scope,
     $stateParams,
@@ -15,7 +16,8 @@ productControllers.controller('productController', [
     productService,
     categoryService,
     typeService,
-    $ionicModal
+    $ionicModal,
+    $rootScope
   )
   {
     $scope.products = productService.list();
@@ -24,6 +26,7 @@ productControllers.controller('productController', [
     $scope.types = typeService.list();
 
 	  $scope.create = function () {
+      $scope.product.user = $rootScope.currentUser.url
 	    productService.create($scope.product);
 	    $scope.products = productService.list();
 	    $state.go('tab.product-list');
@@ -92,7 +95,6 @@ productControllers.controller('productController', [
     });
 
     $scope.selectType = function(type) {
-      debugger
       $scope.product.type = type.name;
       $scope.product.product_type = type.url;
       $scope.typeModal.hide();

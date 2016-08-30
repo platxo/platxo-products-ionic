@@ -2,7 +2,7 @@ var categoryServices = angular.module('categoryServices', ['ngResource']);
 
 var version = 'http://development.'
 var baseUrl = 'platxo-bi.appspot.com';
-var categoriesUrl = '/api/product-categories';
+var categoriesUrl = '/api/product-categories/';
 
 categoryServices.service('categoryService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
   return $resource(version + baseUrl + categoriesUrl +':id/?format=json', {id: '@id'},{

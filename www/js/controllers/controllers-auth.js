@@ -6,12 +6,14 @@ authControllers.controller('signupController', [
   '$state',
   'signupService',
   '$ionicModal',
+  '$location',
   function(
     $scope,
     $stateParams,
     $state,
     signupService,
-    $ionicModal
+    $ionicModal,
+    $location
   )
   {
     $scope.user = {}
@@ -20,11 +22,9 @@ authControllers.controller('signupController', [
       signupService.create($scope.user)
         .$promise
           .then(function (response) {
-            // $rootScope.login = true;
             $scope.user = {};
-            $state.go('tab.product-list');
+            $location.path('/login');
           }, function (reason) {
-            // $rootScope.login = false;
             $scope.user = {};
             $scope.errors = reason;
           })
@@ -44,13 +44,15 @@ authControllers.controller('loginController', [
   'loginService',
   '$ionicModal',
   '$rootScope',
+  '$location',
   function(
     $scope,
     $stateParams,
     $state,
     loginService,
     $ionicModal,
-    $rootScope
+    $rootScope,
+    $location
   )
   {
     $scope.user = {}
@@ -59,13 +61,12 @@ authControllers.controller('loginController', [
       loginService.create($scope.user)
         .$promise
           .then(function (response) {
+            $scope.user = {};
             $rootScope.token = response.token;
             localStorage.setItem("token", JSON.stringify($rootScope.token));
-            $rootScope.isLogin = true;
-            $scope.user = {};
+            localStorage.setItem('user', JSON.stringify(response.user));
             $state.go('tab.product-list');
           }, function (reason) {
-            $rootScope.isLogin = false;
             $scope.user = {};
             $scope.errors = reason;
           })

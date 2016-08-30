@@ -20,9 +20,16 @@ var products = angular.module('products', [
   'authRoutes'
 ])
 
-products.run(function($ionicPlatform, $rootScope) {
+products.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
     $rootScope.token = JSON.parse(localStorage.getItem("token"));
+    $rootScope.currentUser = JSON.parse(localStorage.getItem("user"));
+
+    $rootScope.logout = function() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      $location.path('/login');
+    };
 
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

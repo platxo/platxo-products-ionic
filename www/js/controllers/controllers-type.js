@@ -21,6 +21,7 @@ typeControllers.controller('typeController', [
 	  $scope.categories = categoryService.list();
 
 	  $scope.create = function () {
+      $scope.type.user = $rootScope.currentUser.url
 	    typeService.create($scope.type);
 	    $scope.types = typeService.list();
 	    $state.go('tab.type-list');
