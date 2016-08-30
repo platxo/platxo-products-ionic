@@ -3,8 +3,9 @@
     <h1 class="title">Select Type</h1><button class="button icon ion-android-cancel" ng-click="typeCloseModal()"></button>
   </ion-header-bar>
   <ion-content padding="true">
+    <search></search>
     <ion-radio
-      ng-repeat="type in types | orderBy:'name'"
+      ng-repeat="type in types | orderBy:'name' | filter:search.value"
       ng-model="product.type"
       ng-click="selectType(type)"
       ng-value="type.url"

@@ -87,3 +87,10 @@ products.run(function($ionicPlatform, $rootScope, $location) {
     }
   }
 }])
+
+.directive('search', function () {
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/partials/search.html'
+  }
+})

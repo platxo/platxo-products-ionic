@@ -10,7 +10,8 @@
 
 	<ion-content padding="true">
 		<ion-list>
-			<ion-item ui-sref="tab.category-detail({ id: category.id })" ng-repeat="category in categories" class="item item-button-right item-thumbnail-left">
+      <search></search>
+			<ion-item ui-sref="tab.category-detail({ id: category.id })" ng-repeat="category in categories | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
 				<h2>{{ category.name }}</h2>
 
 				<div class="buttons">
