@@ -7,13 +7,15 @@ typeControllers.controller('typeController', [
   'typeService',
   'categoryService',
   '$ionicModal',
+  '$rootScope',
   function(
     $scope,
     $stateParams,
     $state,
     typeService,
     categoryService,
-    $ionicModal
+    $ionicModal,
+    $rootScope
   )
   {
 	  $scope.types = typeService.list();

@@ -24,6 +24,7 @@ products.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
     $rootScope.token = JSON.parse(localStorage.getItem("token"));
     $rootScope.currentUser = JSON.parse(localStorage.getItem("user"));
+    $rootScope.headers = {'Authorization': 'JWT ' + $rootScope.token}
 
     $rootScope.logout = function() {
       localStorage.removeItem('token');
