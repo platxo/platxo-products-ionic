@@ -4,6 +4,10 @@
 		<button ui-sref="tab.product-create" class="button icon ion-android-add-circle"></button>
 	</ion-nav-buttons>
 
+	<ion-nav-buttons side="right">
+	  <button class="button icon ion-android-more-vertical" ng-click="menu($event)"></button>
+	</ion-nav-buttons>
+	
 	<ion-content padding="true">
 		<ion-list>
 			<ion-item ui-sref="tab.product-detail({ id: product.id })" ng-repeat="product in products" class="item item-button-right item-thumbnail-left">
@@ -19,4 +23,6 @@
 	<ion-footer-bar align-title="left" keyboard-attach class="bar-dark">
     <h1 class="title">Platxo Products</h1>
   </ion-footer-bar>
+
+
 </ion-view>

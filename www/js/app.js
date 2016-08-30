@@ -47,3 +47,43 @@ products.run(function($ionicPlatform, $rootScope, $location) {
     }
   });
 })
+
+.directive('popoverMenu', [ '$ionicPopover', '$rootScope', function ($ionicPopover, $rootScope) {
+  return {
+    restrict: 'E',
+    templateUrl: 'templates/partials/menu.html',
+    controller: function ($scope) {
+      $ionicPopover.fromTemplateUrl('templates/partials/menu.html', {
+        scope: $scope,
+      }).then(function(popover) {
+        $scope.popover = popover;
+      });
+
+      $scope.menu = function($event) {
+        // debugger
+        $scope.popover.show($event);
+      };
+
+      $scope.closeMenu = function(logout) {
+        $scope.popover.hide();
+        if (logout) {
+          $rootScope.logout();
+        }
+      };
+
+      //Cleanup the popover when we're done with it!
+      $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+      });
+      // Execute action on hide popover
+      $scope.$on('popover.hidden', function() {
+        // Execute action
+      });
+      // Execute action on remove popover
+      $scope.$on('popover.removed', function() {
+        // Execute action
+      });
+
+    }
+  }
+}])

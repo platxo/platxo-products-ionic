@@ -4,6 +4,10 @@
     <button ui-sref="tab.category-create" class="button icon ion-android-add-circle"></button>
   </ion-nav-buttons>
 
+  <ion-nav-buttons side="right">
+    <button class="button icon ion-android-more-vertical" ng-click="menu($event)"></button>
+  </ion-nav-buttons>
+
 	<ion-content padding="true">
 		<ion-list>
 			<ion-item ui-sref="tab.category-detail({ id: category.id })" ng-repeat="category in categories" class="item item-button-right item-thumbnail-left">

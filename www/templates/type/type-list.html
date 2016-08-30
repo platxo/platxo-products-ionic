@@ -3,7 +3,11 @@
   <ion-nav-buttons side="left">
     <button ui-sref="tab.type-create" class="button icon ion-android-add-circle"></button>
   </ion-nav-buttons>
-  
+
+  <ion-nav-buttons side="right">
+    <button class="button icon ion-android-more-vertical" ng-click="menu($event)"></button>
+  </ion-nav-buttons>
+
 	<ion-content padding="true">
 		<ion-list>
 			<ion-item ui-sref="tab.type-detail({ id: type.id })" ng-repeat="type in types" class="item item-button-right item-thumbnail-left">
