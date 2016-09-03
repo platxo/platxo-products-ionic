@@ -18,6 +18,8 @@ categoryControllers.controller('categoryController', [
 	  $scope.category = categoryService.detail({id: $stateParams.id});
 	  $scope.create = function () {
 	  	$scope.category.user = $rootScope.currentUser.url
+      $scope.category.business = $rootScope.currentBusiness;
+      $scope.category.employed = $rootScope.currentEmployed;
 	    categoryService.create($scope.category);
 	    $scope.categories = categoryService.list();
 	    $state.go('tab.category-list');
