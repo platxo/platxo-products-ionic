@@ -20,8 +20,6 @@ authControllers.controller('signupController', [
 
     $scope.create = function () {
       $scope.user.is_employed = true;
-      $scope.user.is_owner = false;
-      $scope.user.is_customer = false;
       signupService.create($scope.user)
         .$promise
           .then(function (response) {

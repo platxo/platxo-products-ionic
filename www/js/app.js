@@ -24,8 +24,8 @@ products.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
     $rootScope.token = JSON.parse(localStorage.getItem("token"));
     $rootScope.currentUser = JSON.parse(localStorage.getItem("user"));
-    $rootScope.currentBusiness = "http://development.platxo-bi.appspot.com/api/business/5172475285471232/";
-    $rootScope.currentEmployed = "http://development.platxo-bi.appspot.com/api/employees/5105285353963520/";
+    $rootScope.currentBusiness = "http://development.platxo-bi.appspot.com/api/business/5178179538911232/";
+    $rootScope.currentEmployed = "http://development.platxo-bi.appspot.com/api/employees/5748939487707136/";
     $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
 
     $rootScope.logout = function() {

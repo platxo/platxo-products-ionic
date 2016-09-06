@@ -27,7 +27,6 @@ productControllers.controller('productController', [
 
 	  $scope.create = function () {
       $scope.product.user = $rootScope.currentUser.url
-      $scope.product.is_employed = $rootScope.currentUser.is_employed
       $scope.product.business = $rootScope.currentBusiness;
       $scope.product.employed = $rootScope.currentEmployed;
 	    productService.create($scope.product);
