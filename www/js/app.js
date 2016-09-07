@@ -27,6 +27,8 @@ products.run(function($ionicPlatform, $rootScope, $location) {
     $rootScope.currentBusiness = $rootScope.currentUser.business;
     $rootScope.currentEmployed = $rootScope.currentUser.employed;
     $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
+    $rootScope.version = 'http://development.';
+    $rootScope.baseUrl = 'platxo-bi.appspot.com';
 
     $rootScope.logout = function() {
       localStorage.removeItem('token');
