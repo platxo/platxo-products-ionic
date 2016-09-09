@@ -72,7 +72,8 @@ productControllers.controller('productController', [
 
     $scope.selectCategory = function(category) {
       $scope.product.category = category.name;
-      $scope.product.product_category = category.url;
+      debugger
+      $scope.product.product_category = category.id;
       $scope.categoryModal.hide();
     };
 
@@ -98,7 +99,7 @@ productControllers.controller('productController', [
 
     $scope.selectType = function(type) {
       $scope.product.type = type.name;
-      $scope.product.product_type = type.url;
+      $scope.product.product_type = type.id;
       $scope.typeModal.hide();
     };
 

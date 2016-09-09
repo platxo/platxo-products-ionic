@@ -23,7 +23,6 @@ typeControllers.controller('typeController', [
 	  $scope.categories = categoryService.list();
 
 	  $scope.create = function () {
-      $scope.type.user = $rootScope.currentUser.url
       $scope.type.business = $rootScope.currentBusiness;
       $scope.type.employed = $rootScope.currentEmployed;
 	    typeService.create($scope.type);
@@ -68,8 +67,7 @@ typeControllers.controller('typeController', [
     });
 
     $scope.selectCategory = function(category) {
-      $scope.type.category = category.name;
-      $scope.type.product_category = category.url;
+      $scope.type.product_category = category.id
       $scope.categoryModal.hide();
     };
 

@@ -22,13 +22,13 @@ var products = angular.module('products', [
 
 products.run(function($ionicPlatform, $rootScope, $location) {
   $ionicPlatform.ready(function() {
-    $rootScope.token = JSON.parse(localStorage.getItem("token"));
-    $rootScope.currentUser = JSON.parse(localStorage.getItem("user"));
-    $rootScope.currentBusiness = $rootScope.currentUser.business;
-    $rootScope.currentEmployed = $rootScope.currentUser.employed;
-    $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
     $rootScope.version = 'http://development.';
     $rootScope.baseUrl = 'platxo-bi.appspot.com';
+    $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
+    $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
+    $rootScope.currentBusiness = $rootScope.currentUser.business[0] || '';
+    $rootScope.currentEmployed = $rootScope.currentUser.employed || '';
+    $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
 
     $rootScope.logout = function() {
       localStorage.removeItem('token');
