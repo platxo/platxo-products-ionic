@@ -31,10 +31,6 @@ authControllers.controller('signupController', [
           })
     }
 
-    $scope.cancel = function () {
-      $state.go('tab.product-list');
-    }
-
   }
 ]);
 
@@ -66,15 +62,11 @@ authControllers.controller('loginController', [
             $rootScope.token = response.token;
             localStorage.setItem("token", JSON.stringify($rootScope.token));
             localStorage.setItem('user', JSON.stringify(response.user));
-            $state.go('tab.product-list');
+            $location.path('/business');
           }, function (reason) {
             $scope.user = {};
             $scope.errors = reason;
           })
-    }
-
-    $scope.cancel = function () {
-      $state.go('tab.product-list');
     }
 
   }

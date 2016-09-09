@@ -72,7 +72,6 @@ productControllers.controller('productController', [
 
     $scope.selectCategory = function(category) {
       $scope.product.category = category.name;
-      debugger
       $scope.product.product_category = category.id;
       $scope.categoryModal.hide();
     };
