@@ -27,7 +27,7 @@ products.run(function($ionicPlatform, $rootScope, $location) {
     $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
     $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
     $rootScope.business = $rootScope.currentUser.business || '';
-    $rootScope.currentEmployed = $rootScope.currentUser.employed || '';
+    $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
     $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
 
     $rootScope.logout = function() {
@@ -101,21 +101,11 @@ products.run(function($ionicPlatform, $rootScope, $location) {
 
 .controller('bsController', [
   '$scope',
-  '$stateParams',
   '$state',
-  'productService',
-  'categoryService',
-  'typeService',
-  '$ionicModal',
   '$rootScope',
   function(
     $scope,
-    $stateParams,
     $state,
-    productService,
-    categoryService,
-    typeService,
-    $ionicModal,
     $rootScope
   )
   {

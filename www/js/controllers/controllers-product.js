@@ -28,7 +28,7 @@ productControllers.controller('productController', [
 	  $scope.create = function () {
       $scope.product.user = $rootScope.currentUser.url
       $scope.product.business = $rootScope.currentBusiness;
-      $scope.product.employed = $rootScope.currentEmployed;
+      $scope.product.employee = $rootScope.currentEmployee;
 	    productService.create($scope.product);
 	    $scope.products = productService.list();
 	    $state.go('tab.product-list');

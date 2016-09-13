@@ -23,8 +23,9 @@ typeControllers.controller('typeController', [
 	  $scope.categories = categoryService.list();
 
 	  $scope.create = function () {
+      debugger
       $scope.type.business = $rootScope.currentBusiness;
-      $scope.type.employed = $rootScope.currentEmployed;
+      $scope.type.employee = $rootScope.currentEmployee;
 	    typeService.create($scope.type);
 	    $scope.types = typeService.list();
 	    $state.go('tab.type-list');
