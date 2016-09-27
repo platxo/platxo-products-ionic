@@ -20,6 +20,7 @@ productControllers.controller('productController', [
     $rootScope
   )
   {
+    debugger
     $scope.products = productService.list();
     $scope.product = productService.detail({id: $stateParams.id});
     $scope.categories = categoryService.list();

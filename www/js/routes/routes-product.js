@@ -48,6 +48,4 @@ productRoutes.config(['$stateProvider', '$urlRouterProvider', function ($statePr
       }
     })
 
-  $urlRouterProvider.otherwise('/tab/product-list');
-
 }]);

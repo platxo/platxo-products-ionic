@@ -14,6 +14,9 @@ var products = angular.module('products', [
   'productServices',
   'categoryRoutes',
   'typeRoutes',
+  'businessControllers',
+  'businessRoutes',
+  'businessServices',
   'productRoutes',
   'authControllers',
   'authServices',
@@ -26,8 +29,8 @@ products.run(function($ionicPlatform, $rootScope, $location) {
     $rootScope.baseUrl = 'platxo-bi.appspot.com';
     $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
     $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
-    $rootScope.business = $rootScope.currentUser.business || '';
     $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
+    $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
     $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
 
     $rootScope.logout = function() {
@@ -98,24 +101,3 @@ products.run(function($ionicPlatform, $rootScope, $location) {
     templateUrl: 'templates/partials/search.html'
   }
 })
-
-.controller('bsController', [
-  '$scope',
-  '$state',
-  '$rootScope',
-  function(
-    $scope,
-    $state,
-    $rootScope
-  )
-  {
-    
-    $scope.selectBs = function(bs) {
-      $rootScope.currentBusiness = bs.id;
-      $state.go('tab.product-list');
-    };
-
-   
-
-  }
-]);

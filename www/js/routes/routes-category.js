@@ -48,6 +48,4 @@ categoryRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateP
       }
     })
 
-  $urlRouterProvider.otherwise('/tab/product-list');
-
 }]);
