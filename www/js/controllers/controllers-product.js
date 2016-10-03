@@ -21,7 +21,6 @@ productControllers.controller('productController', [
   )
   {
     $scope.products = productService.list();
-    $scope.product = productService.detail({id: $stateParams.id});
     $scope.categories = categoryService.list();
     $scope.types = typeService.list();
 
@@ -49,6 +48,11 @@ productControllers.controller('productController', [
 	  $scope.cancel = function () {
 	    $state.go('tab.product-list');
 	  }
+
+    $scope.detail = function (product) {
+      $rootScope.selectedProduct = product;
+      $state.go('tab.product-detail', { 'id': product.id });
+    }
 
     //Modal select category
     $ionicModal.fromTemplateUrl('templates/product/select-category.html', {

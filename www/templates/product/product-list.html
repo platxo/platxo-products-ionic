@@ -11,7 +11,7 @@
 	<ion-content padding="true">
 		<ion-list>
 			<search></search>
-			<ion-item ui-sref="tab.product-detail({ id: product.id })" ng-repeat="product in products | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
+			<ion-item ng-click="detail(product)" ng-repeat="product in products | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
 				<h2>{{ product.name }}</h2>
 				
 				<div class="buttons">

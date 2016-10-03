@@ -1,13 +1,21 @@
 <ion-view view-title="Product Detail">
 	<ion-content padding="true">
     <div class="list card">
-      <div class="item item-divider">{{product.name}}</div>
+      <div class="item item-divider">{{selectedProduct.name}}</div>
       <div class="item item-body">
-        <h2>Id: {{product.id}}</h2>
-        <h2 ng-repeat="category in categories | filter: product.product_category">Category: {{category.name}}</h2>
-        <h2 ng-repeat="type in types | filter: product.product_type">Type: {{type.name}}</h2>
-        <h2>Price: {{product.price | currency }}</h2>
-        <h2>Quantity: {{product.quantity}}</h2>
+        <h2>Id: {{selectedProduct.id}}</h2>
+        <h2>Name: {{selectedProduct.name}}</h2>
+        <h2>Description: {{selectedProduct.description}}</h2>
+        <h2>Supplier: {{selectedProduct.supplier}}</h2>
+        <h2>Location: {{selectedProduct.extra.location_name}}</h2>
+        <h2>Section: {{selectedProduct.extra.section_name}}</h2>
+        <h2>Category: {{selectedProduct.extra.product_category_name}}</h2>
+        <h2>Type: {{selectedProduct.extra.product_type_name}}</h2>
+        <h2>Price: {{selectedProduct.retail_price | currency : $ : 0 }}</h2>
+        <h2>Inventory: {{selectedProduct.inventory }}</h2>
+        <h2>Quantity: {{selectedProduct.quantity}}</h2>
+        <h2>Created: {{selectedProduct.created | date:'medium'}}</h2>
+        <h2>Updated: {{selectedProduct.updated | date:'medium'}}</h2>
       </div>
     </div>
 	</ion-content>
