@@ -109,7 +109,6 @@ productControllers.controller('productController', [
     });
 
     $scope.selectCategory = function(category) {
-      debugger
       $scope.product.category = category.name;
       $scope.product.product_category = category.id;
       $scope.categoryModal.hide();
