@@ -20,29 +20,63 @@ productControllers.controller('productController', [
     $rootScope
   )
   {
-    $scope.products = productService.list();
-    $scope.categories = categoryService.list();
-    $scope.types = typeService.list();
+    $scope.product = {}
+
+    productService.list()
+      .$promise
+        .then(function (res) {
+           $scope.products = res;
+        }, function (error) {
+          
+        })
+    categoryService.list()
+      .$promise
+        .then(function (res) {
+           $scope.categories = res;
+        }, function (error) {
+          
+        })
+    typeService.list()
+      .$promise
+        .then(function (res) {
+           $scope.types = res;
+        }, function (error) {
+          
+        })
 
 	  $scope.create = function () {
-      $scope.product.user = $rootScope.currentUser.url
       $scope.product.business = $rootScope.currentBusiness;
-      $scope.product.employee = $rootScope.currentEmployee;
-	    productService.create($scope.product);
-	    $scope.products = productService.list();
-	    $state.go('tab.product-list');
+      $scope.product.employee = $rootScope.currentEmployee.id;
+	    productService.create($scope.product)
+        .$promise
+          .then(function (res) {
+      	    $scope.products = productService.list();
+      	    $state.go('tab.product-list');
+          }, function (error) {
+            
+          })
 	  }
 
 	  $scope.update = function () {
-	    productService.update($scope.product);
-	    $scope.products = productService.list();
-	    $state.go('tab.product-list');
+	    productService.update($scope.product)
+        .$promise
+          .then(function (res) {
+      	    $scope.products = productService.list();
+      	    $state.go('tab.product-list');
+          }, function (error) {
+            
+          })
 	  }
 
 	  $scope.delete = function () {
-	    productService.delete($scope.product);
-	    $scope.products = productService.list();
-	    $state.go('tab.product-list');
+	    productService.delete($scope.product)
+        .$promise
+          .then(function (res) {
+      	    $scope.products = productService.list()
+      	    $state.go('tab.product-list');
+          }, function (error) {
+            
+          })
 	  }
 
 	  $scope.cancel = function () {
@@ -75,6 +109,7 @@ productControllers.controller('productController', [
     });
 
     $scope.selectCategory = function(category) {
+      debugger
       $scope.product.category = category.name;
       $scope.product.product_category = category.id;
       $scope.categoryModal.hide();

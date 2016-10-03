@@ -6,9 +6,8 @@
     <search></search>
     <ion-radio
       ng-repeat="category in categories | orderBy:'name' | filter:search.value"
-      ng-model="product.category"
       ng-click="selectCategory(category)"
-      ng-value="category.url"
+      ng-value="category.id"
       name="{{category.name}}">
       {{category.name}}
     </ion-radio>

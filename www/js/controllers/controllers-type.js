@@ -18,28 +18,55 @@ typeControllers.controller('typeController', [
     $rootScope
   )
   {
-	  $scope.types = typeService.list();
-	  $scope.categories = categoryService.list();
+    typeService.list()
+      .$promise
+        .then(function (res) {
+          $scope.types = res;
+        }, function (error) {
+          
+        })
+	  $scope.type = {}
+	  categoryService.list()
+      .$promise
+        .then(function (res) {
+           $scope.categories = res;
+        }, function (error) {
+          
+        })
 
 	  $scope.create = function () {
-      debugger
       $scope.type.business = $rootScope.currentBusiness;
-      $scope.type.employee = $rootScope.currentEmployee;
-	    typeService.create($scope.type);
-	    $scope.types = typeService.list();
-	    $state.go('tab.type-list');
+      $scope.type.employee = $rootScope.currentEmployee.id;
+	    typeService.create($scope.type)
+        .$promise
+          .then(function (res) {
+      	    $scope.types = typeService.list();
+      	    $state.go('tab.type-list');
+          }, function (error) {
+            
+          })
 	  }
 
 	  $scope.update = function () {
-	    typeService.update($scope.type);
-	    $scope.types = typeService.list();
-	    $state.go('tab.type-list');
+	    typeService.update($scope.type)
+        .$promise
+          .then(function (res) {
+      	    $scope.types = typeService.list();
+      	    $state.go('tab.type-list');
+          }, function (error) {
+            
+          })
 	  }
 
 	  $scope.delete = function () {
-	    typeService.delete($scope.type);
-	    $scope.types = typeService.list();
-	    $state.go('tab.type-list');
+	    typeService.delete($scope.type)
+        .$promise
+          .then(function (res) {
+      	    $scope.types = typeService.list();
+      	    $state.go('tab.type-list');
+          }, function (error) {
+            
+          })
 	  }
 
 	  $scope.cancel = function () {
