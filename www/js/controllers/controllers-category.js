@@ -15,7 +15,6 @@ categoryControllers.controller('categoryController', [
   )
   {
 	  $scope.categories = categoryService.list();
-	  $scope.category = categoryService.detail({id: $stateParams.id});
 	  $scope.create = function () {
 	  	$scope.category.user = $rootScope.currentUser.url
       $scope.category.business = $rootScope.currentBusiness;
@@ -39,6 +38,11 @@ categoryControllers.controller('categoryController', [
 
 	  $scope.cancel = function () {
 	    $state.go('tab.category-list');
+	  }
+
+	  $scope.detail = function (category) {
+	    $rootScope.selectedCategory = category;
+	    $state.go('tab.category-detail', { 'id': category.id });
 	  }
 
 	  $scope.$on('$stateChangeSuccess', function() {

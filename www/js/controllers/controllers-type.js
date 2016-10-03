@@ -19,7 +19,6 @@ typeControllers.controller('typeController', [
   )
   {
 	  $scope.types = typeService.list();
-	  $scope.type = typeService.detail({id: $stateParams.id});
 	  $scope.categories = categoryService.list();
 
 	  $scope.create = function () {
@@ -46,6 +45,11 @@ typeControllers.controller('typeController', [
 	  $scope.cancel = function () {
 	    $state.go('tab.type-list');
 	  }
+
+    $scope.detail = function (type) {
+      $rootScope.selectedType = type;
+      $state.go('tab.type-detail', { 'id': type.id });
+    }
 
     //Modal select category
     $ionicModal.fromTemplateUrl('templates/type/select-category.html', {
