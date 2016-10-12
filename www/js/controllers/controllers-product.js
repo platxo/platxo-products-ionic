@@ -9,6 +9,7 @@ productControllers.controller('productController', [
   'typeService',
   '$ionicModal',
   '$rootScope',
+  '$cordovaCamera',
   function(
     $scope,
     $stateParams,
@@ -17,7 +18,8 @@ productControllers.controller('productController', [
     categoryService,
     typeService,
     $ionicModal,
-    $rootScope
+    $rootScope,
+    $cordovaCamera
   )
   {
     $scope.products = productService.list();
@@ -101,6 +103,30 @@ productControllers.controller('productController', [
       $scope.product.product_type = type.id;
       $scope.typeModal.hide();
     };
+
+    $scope.takePicture = function() {
+    var options = {
+        quality : 100,
+        destinationType : Camera.DestinationType.DATA_URL,
+        sourceType : Camera.PictureSourceType.CAMERA,
+        allowEdit : true,
+        encodingType: Camera.EncodingType.JPEG,
+        targetWidth: 300,
+        targetHeight: 300,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: false,
+        correctOrientation:true
+    };
+
+    $cordovaCamera.getPicture(options).then(function(imageData) {
+      var product_id = $scope.product.id
+      $scope.product.picture = imageData;
+      productService.update($scope.product);
+      $location.path('/tab/product-detail/' + product_id);
+    }, function(error) {
+          alert(JSON.stringify(err));
+    });
+   }
 
 	  $scope.$on('$stateChangeSuccess', function() {
 	    $scope.products = productService.list();
