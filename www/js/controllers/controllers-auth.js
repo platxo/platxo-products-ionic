@@ -62,7 +62,7 @@ authControllers.controller('loginController', [
             $rootScope.token = response.token;
             localStorage.setItem("token", JSON.stringify($rootScope.token));
             localStorage.setItem('user', JSON.stringify(response.user));
-            debugger
+            $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
             $location.path('/business-list');
           }, function (reason) {
             debugger

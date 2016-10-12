@@ -6,9 +6,8 @@
     <search></search>
     <ion-radio
       ng-repeat="type in types | orderBy:'name' | filter:search.value"
-      ng-model="product.type"
       ng-click="selectType(type)"
-      ng-value="type.url"
+      ng-value="type.id"
       name="{{type.name}}">
       {{type.name}}
     </ion-radio>

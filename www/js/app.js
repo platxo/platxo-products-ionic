@@ -69,6 +69,7 @@ products.run(function($ionicPlatform, $rootScope, $location) {
 
       $scope.menu = function($event) {
         // debugger
+        $scope.popover.modalEl.className = "popover"
         $scope.popover.show($event);
       };
 
