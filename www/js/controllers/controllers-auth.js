@@ -24,7 +24,12 @@ authControllers.controller('signupController', [
         .$promise
           .then(function (response) {
             $scope.user = {};
-            $location.path('/login');
+            $rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
+            $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
+            $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
+            $rootScope.currentBusiness = JSON.parse(localStorage.getItem("currentBusiness")) || '';
+            $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
+            $location.path('/business-list');
           }, function (reason) {
             $scope.user = {};
             $scope.errors = reason;
