@@ -25,6 +25,15 @@
         <span class="input-label">Quantity</span>
         <input ng-model="product.quantity" type="number" min="0">
       </label>
+      <label class="item item-toggle">
+        Inventory
+        <label class="toggle toggle-balanced">
+          <input type="checkbox">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </label>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
       <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>

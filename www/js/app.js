@@ -18,6 +18,11 @@ var products = angular.module('products', [
   'businessRoutes',
   'businessServices',
   'productRoutes',
+  'settingRoutes',
+  'settingControllers',
+  'inventoryControllers',
+  'inventoryServices',
+  'inventoryRoutes',
   'authControllers',
   'authServices',
   'authRoutes'
