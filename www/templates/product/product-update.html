@@ -13,6 +13,7 @@
         <span class="input-label">Quantity</span>
         <input ng-model="product.quantity" type="number" min="0">
       </label>
+      <button ng-click="takePicture()" class="button button-stable button-block button-outline icon-left ion-ios-camera-outline">Take Picture</button>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Update</button>
       <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>

@@ -7,13 +7,14 @@
 	<ion-nav-buttons side="right">
 	  <button class="button icon ion-android-more-vertical" ng-click="menu($event)"></button>
 	</ion-nav-buttons>
-	
+
 	<ion-content padding="true">
 		<ion-list>
 			<search></search>
 			<ion-item ng-click="detail(product)" ng-repeat="product in products | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
+				<img ng-src="{{product.extra.picture_url}}">
 				<h2>{{ product.name }}</h2>
-				
+
 				<div class="buttons">
 				  <ion-option-button ui-sref="tab.product-update({id: product.id})" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
 				  <ion-option-button ui-sref="tab.product-delete({id: product.id})" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>
@@ -23,6 +24,7 @@
 	</ion-content>
 	<ion-footer-bar align-title="left" keyboard-attach class="bar-dark">
     <h1 class="title">Platxo Products</h1>
+		<button on-touch="scan()" class="button icon ion-qr-scanner pull-right"></button>
   </ion-footer-bar>
 
 
