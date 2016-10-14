@@ -10,6 +10,7 @@ productControllers.controller('productController', [
   '$ionicModal',
   '$rootScope',
   '$cordovaCamera',
+  '$cordovaBarcodeScanner',
   function(
     $scope,
     $stateParams,
@@ -19,7 +20,8 @@ productControllers.controller('productController', [
     typeService,
     $ionicModal,
     $rootScope,
-    $cordovaCamera
+    $cordovaCamera,
+    $cordovaBarcodeScanner
   )
   {
     $scope.product = {}
@@ -29,21 +31,21 @@ productControllers.controller('productController', [
         .then(function (res) {
            $scope.products = res;
         }, function (error) {
-          
+
         })
     categoryService.list()
       .$promise
         .then(function (res) {
            $scope.categories = res;
         }, function (error) {
-          
+
         })
     typeService.list()
       .$promise
         .then(function (res) {
            $scope.types = res;
         }, function (error) {
-          
+
         })
 
 	  $scope.create = function () {
@@ -55,7 +57,7 @@ productControllers.controller('productController', [
       	    $scope.products = productService.list();
       	    $state.go('tab.product-list');
           }, function (error) {
-            
+
           })
 	  }
 
@@ -66,7 +68,7 @@ productControllers.controller('productController', [
       	    $scope.products = productService.list();
       	    $state.go('tab.product-list');
           }, function (error) {
-            
+
           })
 	  }
 
@@ -77,7 +79,7 @@ productControllers.controller('productController', [
       	    $scope.products = productService.list()
       	    $state.go('tab.product-list');
           }, function (error) {
-            
+
           })
 	  }
 
@@ -142,29 +144,46 @@ productControllers.controller('productController', [
       $scope.typeModal.hide();
     };
 
-    $scope.takePicture = function() {
-    var options = {
-        quality : 100,
-        destinationType : Camera.DestinationType.DATA_URL,
-        sourceType : Camera.PictureSourceType.CAMERA,
-        allowEdit : true,
-        encodingType: Camera.EncodingType.JPEG,
-        targetWidth: 300,
-        targetHeight: 300,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false,
-        correctOrientation:true
-    };
+   $scope.takePicture = function() {
+      var options = {
+          quality : 100,
+          destinationType : Camera.DestinationType.DATA_URL,
+          sourceType : Camera.PictureSourceType.CAMERA,
+          allowEdit : true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 300,
+          targetHeight: 300,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          correctOrientation:true
+      };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {
-      var product_id = $scope.product.id
-      $scope.product.picture = imageData;
-      productService.update($scope.product);
-      $location.path('/tab/product-detail/' + product_id);
-    }, function(error) {
+      $scope.product.picture = "data:image/jpeg;base64," + imageData;
+      businessService.update($scope.product)
+        .$promise
+          .then(function (res) {
+            $state.go('tab.product-detail', {'id':$scope.product.id});
+          }, function (err) {
+
+          })
+    }, function(err) {
           alert(JSON.stringify(err));
     });
-   }
+    }
+
+    $scope.scan = function () {
+    $cordovaBarcodeScanner.scan().then( function (data) {
+      var product = data.text
+      if (product){
+        $location.path('/tab/product-detail/' + product);
+      } else {
+        $state.go('tab.product-list');
+      }
+    }, function (err) {
+        alert("Scanning failed: " + err);
+       });
+    }
 
 	  $scope.$on('$stateChangeSuccess', function() {
 	    $scope.products = productService.list();
