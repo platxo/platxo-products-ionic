@@ -85,6 +85,10 @@ inventoryControllers.controller('locationController', [
        });
      };
 
+    $scope.cancel = function () {
+      $state.go('inventory-location');
+    }
+
 
 	}
 ]);
@@ -211,6 +215,9 @@ inventoryControllers.controller('sectionController', [
        });
      };
 
+     $scope.cancel = function () {
+      $state.go('inventory-section');
+    }
 
   }
 ]);
