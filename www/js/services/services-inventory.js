@@ -14,6 +14,7 @@ inventoryServices.service('locationService', [ '$resource', '$rootScope', functi
 
 inventoryServices.service('sectionService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
   return $resource($rootScope.version + $rootScope.baseUrl + sectionUrl +':id/?format=json', {id: '@id'},{
+    create: { method: 'POST', headers: $rootScope.headersJWT },
     list: { method: 'GET', isArray:true, headers: $rootScope.headersJWT },
     update: { method: 'PUT', headers: $rootScope.headersJWT },
     delete: { method: 'DELETE', headers: $rootScope.headersJWT }

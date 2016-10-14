@@ -114,7 +114,7 @@ productControllers.controller('productController', [
       $scope.categoryModal.hide();
     };
 
-    //Modal select category
+    //Modal select type
     $ionicModal.fromTemplateUrl('templates/product/select-type.html', {
       scope: $scope,
       controller: 'productController',
