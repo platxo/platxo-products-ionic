@@ -9,6 +9,10 @@
         <span class="input-label">Type</span>
         <input type="text" value="{{product.type_name}}">
       </label>
+      <label class="item item-input item-select" ng-click="brandOpenModal()">
+        <span class="input-label">Brand</span>
+        <input type="text" value="{{product.brand}}">
+      </label>
       <label class="item item-input">
         <span class="input-label">Name</span>
         <input ng-model="product.name" type="text" placeholder="" value="">

@@ -117,6 +117,7 @@ productControllers.controller('productCreateCtrl', [
   '$ionicModal',
   'productService',
   'locationService',
+  'brandService',
   'sectionService',
   'categoryService',
   'typeService',
@@ -128,6 +129,7 @@ productControllers.controller('productCreateCtrl', [
     $ionicModal,
     productService,
     locationService,
+    brandService,
     sectionService,
     categoryService,
     typeService
@@ -155,6 +157,19 @@ productControllers.controller('productCreateCtrl', [
 	  	.$promise
 	  		.then(function (res) {
 	  			$scope.sections = res
+          $ionicLoading.hide();
+	  		}, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+	  		})
+      })
+
+    brandService.list()
+	  	.$promise
+	  		.then(function (res) {
+	  			$scope.brands = res
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
@@ -246,6 +261,28 @@ productControllers.controller('productCreateCtrl', [
     };
     $scope.sectionCloseModal = function() {
       $scope.sectionModal.hide();
+    };
+
+    $scope.selectBrand = function(brand) {
+      $scope.product.brand_name = brand.name;
+      $scope.product.brand = brand.id;
+      $scope.brandModal.hide();
+    };
+
+    //Modal select brand
+    $ionicModal.fromTemplateUrl('templates/product/select-brand.html', {
+      scope: $scope,
+      controller: 'productCreateCtrl',
+      animation: 'slide-in-up',
+      focusFirstInput: true
+    }).then(function(modal) {
+      $scope.brandModal = modal;
+    });
+    $scope.brandOpenModal = function() {
+      $scope.brandModal.show();
+    };
+    $scope.brandCloseModal = function() {
+      $scope.brandModal.hide();
     };
 
     $scope.selectCategory = function(category) {

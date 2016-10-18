@@ -9,6 +9,10 @@
         <span class="input-label">Type</span>
         <input type="text" value="{{product.type_name}}">
       </label>
+			<label class="item item-input item-select" ng-click="brandOpenModal()">
+        <span class="input-label">Brand</span>
+        <input type="text" value="{{product.brand_name}}">
+      </label>
       <label class="item item-input">
         <span class="input-label">Name</span>
         <input ng-model="product.name" type="text" placeholder="" value="">
@@ -25,11 +29,11 @@
         <span class="input-label">Retail Price</span>
         <input ng-model="product.retail_price" type="number" min="0" step="0.01">
       </label>
-      <label class="item item-input">
+			<ion-toggle ng-model="product.inventory" toggle-class="toggle-balanced">Inventory</ion-toggle>
+			<label class="item item-input" ng-if="product.inventory">
         <span class="input-label">Quantity</span>
         <input ng-model="product.quantity" type="number" min="0">
       </label>
-			<ion-toggle ng-model="product.inventory" toggle-class="toggle-balanced">Inventory</ion-toggle>
 			<label class="item item-input item-select" ng-if="product.inventory" ng-click="locationOpenModal()">
         <span class="input-label">Location</span>
         <input type="text" value="{{product.location_name}}">
