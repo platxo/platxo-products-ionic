@@ -1,0 +1,13 @@
+<ion-view view-title="Section Delete">
+  <ion-content padding="true">
+
+    <div class="list">
+      <p>
+        Are you sure you want to delete the section: {{section.name}}?
+      </p>
+      <button ng-click="delete()" class="button button-assertive  button-block button-outline icon-left ion-android-cancel">Delete</button>
+      <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
+    </div>
+
+  </ion-content>
+</ion-view>

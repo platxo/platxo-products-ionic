@@ -1,0 +1,21 @@
+<ion-view view-title="Business List" hide-back-button="true">
+
+	<ion-content padding="true">
+		<ion-refresher  pulling-icon="ion-arrow-down-b" on-refresh="refresh()"></ion-refresher>
+		<ion-list>
+			<label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input ng-model="search.value" type="search" placeholder="Search" ng-change="scrollTop()">
+        <button ng-if="search.value" on-touch="search.value=''" class="button button-stable button-inline button-clear icon-center ion-close">
+       </button>
+      </label>
+			<ion-item ui-sref="business-detail({ id: bs.id })" ng-repeat="bs in business | orderBy:'name' | filter:search.value" class="item item-button-right item-avatar-left">
+				<img ng-src="{{bs.extra.picture_url}}">
+				<h2>{{ bs.name }}</h2>
+				<div class="buttons">
+					<ion-option-button ng-click="selectBusiness(bs)" class="button button-dark button-outline icon-center ion-android-checkbox"></ion-option-button>
+				</div>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,29 @@
+<ion-view view-title="Section List" hide-back-button="true">
+
+  <ion-nav-buttons side="left">
+		<button ui-sref="tab.product-list" class="button icon ion-arrow-left-c"></button>
+	</ion-nav-buttons>
+
+  <ion-nav-buttons side="right">
+    <button ui-sref="section-create" class="button icon ion-android-add-circle"></button>
+  </ion-nav-buttons>
+
+	<ion-content padding="true">
+    <ion-refresher  pulling-icon="ion-arrow-down-b" on-refresh="refresh()"></ion-refresher>
+		<ion-list>
+      <search-Directive></search-Directive>
+			<ion-item ui-sref="section-detail({ id: section.id })" ng-repeat="section in sections | orderBy:'name' | filter:search.value" class="item item-button-right">
+				<h2>{{ section.name }}</h2>
+
+				<div class="buttons">
+				  <ion-option-button ui-sref="section-update({id: section.id})" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
+				  <ion-option-button ui-sref="section-delete({id: section.id})" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>
+				</div>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+  <ion-footer-bar align-title="left" keyboard-attach class="bar-dark">
+    <h1 class="title">Platxo Products</h1>
+    <button on-touch="scan()" class="button icon ion-qr-scanner pull-right"></button>
+  </ion-footer-bar>
+</ion-view>

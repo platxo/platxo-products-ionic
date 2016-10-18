@@ -3,14 +3,15 @@
 		<form ng-submit="create()" class="list">
       <label class="item item-input item-select" ng-click="categoryOpenModal()">
         <span class="input-label">Category</span>
-        <input type="text" value="{{type.category}}">
+				<input type="text" value="{{type.category_name}}">
+      </label>
       </label>
       <label class="item item-input">
         <span class="input-label">Name</span>
         <input ng-model="type.name" type="text" placeholder="" value="">
       </label>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Create</button>
-      <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
+      <button type="button" ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>
 	</ion-content>
 </ion-view>

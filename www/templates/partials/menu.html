@@ -1,22 +1,21 @@
-<ion-popover-view style="height: 164px;" class="hidden">
+<ion-popover-view>
   <ion-content>
+
     <ion-list>
       <ion-item href="#/profile">
         <i class="icon ion-person"></i>
-        {{currentUser.username}}
+        {{currentEmployee.user}}
       </ion-item>
-      <ion-item ui-sref="inventory-list" ng-click="closeMenu()">
-        <i class="icon ion-ios-pricetags"></i>
-        Inventory
+      <ion-item ui-sref="business-list" ng-click="popover.hide()">
+        <i class="icon ion-briefcase"></i>
+          {{currentBusiness.name}}
       </ion-item>
-      <ion-item ui-sref="settings-list" ng-click="closeMenu()">
+      <ion-item ui-sref="settings-list" ng-click="popover.hide()">
         <i class="icon ion-android-settings"></i>
         Settings
       </ion-item>
-      <ion-item ng-click="closeMenu(true)">
-        <i class="icon ion-power"></i>
-        Logout
-      </ion-item>
+      <logout-Directive></logout-Directive>
     </ion-list>
+
   </ion-content>
 </ion-popover-view>

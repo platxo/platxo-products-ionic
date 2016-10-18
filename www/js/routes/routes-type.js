@@ -7,7 +7,7 @@ typeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       views: {
         'tab-types': {
           templateUrl: 'templates/type/type-list.html',
-          controller: 'typeController'
+          controller: 'typeListCtrl'
         }
       }
     })
@@ -16,7 +16,7 @@ typeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       views: {
         'tab-types': {
           templateUrl: 'templates/type/type-detail.html',
-          controller: 'typeController'
+          controller: 'typeDetailCtrl'
         }
       }
     })
@@ -25,7 +25,7 @@ typeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       views: {
         'tab-types': {
           templateUrl: 'templates/type/type-create.html',
-          controller: 'typeController'
+          controller: 'typeCreateCtrl'
         }
       }
     })
@@ -34,7 +34,7 @@ typeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       views: {
         'tab-types': {
           templateUrl: 'templates/type/type-update.html',
-          controller: 'typeController'
+          controller: 'typeUpdateCtrl'
         }
       }
     })
@@ -43,9 +43,11 @@ typeRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvi
       views: {
         'tab-types': {
           templateUrl: 'templates/type/type-delete.html',
-          controller: 'typeController'
+          controller: 'typeDeleteCtrl'
         }
       }
     })
+
+   $urlRouterProvider.otherwise('/login');
 
 }]);

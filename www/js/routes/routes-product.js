@@ -1,13 +1,18 @@
 var productRoutes = angular.module('productRoutes', []);
 
 productRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-  $stateProvider    
+  $stateProvider
+    .state('tab', {
+      url: '/tab',
+      abstract: true,
+      templateUrl: 'templates/tabs.html'
+    })
   	.state('tab.product-list', {
   	  url: '/product-list',
       views: {
         'tab-products': {
           templateUrl: 'templates/product/product-list.html',
-          controller: 'productController'
+          controller: 'productListCtrl'
         }
       }
   	})
@@ -16,7 +21,7 @@ productRoutes.config(['$stateProvider', '$urlRouterProvider', function ($statePr
       views: {
         'tab-products': {
           templateUrl: 'templates/product/product-detail.html',
-          controller: 'productController'
+          controller: 'productDetailCtrl'
         }
       }
     })
@@ -25,7 +30,7 @@ productRoutes.config(['$stateProvider', '$urlRouterProvider', function ($statePr
       views: {
         'tab-products': {
           templateUrl: 'templates/product/product-create.html',
-          controller: 'productController'
+          controller: 'productCreateCtrl'
         }
       }
     })
@@ -34,7 +39,7 @@ productRoutes.config(['$stateProvider', '$urlRouterProvider', function ($statePr
       views: {
         'tab-products': {
           templateUrl: 'templates/product/product-update.html',
-          controller: 'productController'
+          controller: 'productUpdateCtrl'
         }
       }
     })
@@ -43,9 +48,11 @@ productRoutes.config(['$stateProvider', '$urlRouterProvider', function ($statePr
       views: {
         'tab-products': {
           templateUrl: 'templates/product/product-delete.html',
-          controller: 'productController'
+          controller: 'productDeleteCtrl'
         }
       }
     })
+
+    $urlRouterProvider.otherwise('/login');
 
 }]);

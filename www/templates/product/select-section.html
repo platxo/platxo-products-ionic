@@ -1,0 +1,13 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-balanced">
+    <h1 class="title">Select Section</h1><button class="button icon ion-android-cancel" ng-click="sectionCloseModal()"></button>
+  </ion-header-bar>
+  <ion-content padding="true">
+    <search-Directive></search-Directive>
+    <ion-radio
+      ng-repeat="section in sections | orderBy:'name' | filter:search.value"
+      ng-click="selectSection(section)"
+    >{{section.name}}
+    </ion-radio>
+  </ion-content>
+</ion-modal-view>

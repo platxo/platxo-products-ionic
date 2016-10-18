@@ -1,62 +1,125 @@
 var businessControllers = angular.module('businessControllers', []);
 
-businessControllers.controller('businessController', [
+businessControllers.controller('businessListCtrl', [
   '$scope',
   '$rootScope',
   '$stateParams',
   '$state',
-  '$location',
-  '$ionicModal',
+  '$ionicLoading',
   'businessService',
   function(
     $scope,
     $rootScope,
     $stateParams,
     $state,
-    $location,
-    $ionicModal,
+    $ionicLoading,
     businessService
   )
   {
-    businessService.list()
+    $ionicLoading.show({
+      template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
+      noBackdrop: true
+    });
+
+	  businessService.list()
       .$promise
-        .then(function(res) {
-          debugger
-          $rootScope.business = res;
-          localStorage.setItem("allBusiness", JSON.stringify($rootScope.business));
-        }, function (error) {
-          if (error.data.detail === "Signature has expired.") {
-            debugger
-          }
+        .then(function (res) {
+          $scope.business = res
+          $ionicLoading.hide();
+        }, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+          })
         })
 
-	  $scope.update = function () {
-      debugger
-	    businessService.update($scope.bs)
-        .$promise
-          .then(function (res) {
-      	    $scope.business = businessService.list();
-      	    $state.go('business-list');
-          }, function (res) {
-            if (error.data.detail === "Signature has expired.") {
-              debugger
-            }
-          })
-	  }
+      $scope.refresh = function () {
+        businessService.list()
+          .$promise
+            .then(function (res) {
+              $scope.business = res
+              $ionicLoading.hide();
+              $scope.$broadcast('scroll.refreshComplete');
+            }, function (err) {
+              $ionicLoading.hide();
+              $ionicLoading.show({
+                template: 'Network Error',
+                scope: $scope
+              })
+            })
+        }
 
-	  $scope.cancel = function () {
-	    $state.go('business-list');
-	  }
-
-    $scope.selectBs = function(bs) {
-      $rootScope.currentBusiness = bs.id;
-      localStorage.setItem("currentBusiness", JSON.stringify($rootScope.currentBusiness));
+    $scope.selectBusiness = function(bs) {
+      $rootScope.currentBusiness = bs
+      window.localStorage.setItem('business', JSON.stringify($rootScope.currentBusiness));
       $state.go('tab.product-list');
     }
 
+    $scope.refresh = function () {
+      businessService.list()
+        .$promise
+          .then(function (res) {
+            $scope.business = res
+            $ionicLoading.hide();
+            $scope.$broadcast('scroll.refreshComplete');
+          }, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+            })
+          })
+    }
+
     $scope.$on('$stateChangeSuccess', function() {
-	    $scope.business = businessService.list();
+	    businessService.list()
+        .$promise
+          .then(function (res) {
+            $scope.business = res
+            $ionicLoading.hide();
+          }, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+            })
+          })
 	  })
 
+	}
+]);
+
+businessControllers.controller('businessDetailCtrl', [
+  '$scope',
+  '$stateParams',
+  '$state',
+  '$ionicLoading',
+  'businessService',
+  function(
+    $scope,
+    $stateParams,
+    $state,
+    $ionicLoading,
+    businessService
+  )
+  {
+    $ionicLoading.show({
+      template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
+      noBackdrop: true
+    });
+
+    businessService.detail({id: $stateParams.id})
+      .$promise
+        .then(function (res) {
+          $scope.bs = res
+          $ionicLoading.hide();
+        }, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+          })
+        });
 	}
 ]);

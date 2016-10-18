@@ -3,13 +3,11 @@
     <h1 class="title">Select Category</h1><button class="button icon ion-android-cancel" ng-click="categoryCloseModal()"></button>
   </ion-header-bar>
   <ion-content padding="true">
-    <search></search>
+    <search-Directive></search-Directive>
     <ion-radio
       ng-repeat="category in categories | orderBy:'name' | filter:search.value"
       ng-click="selectCategory(category)"
-      ng-value="category.url"
-      name="{{category.name}}">
-      {{category.name}}
+    >{{category.name}}
     </ion-radio>
   </ion-content>
-</ion-modal-view> 
+</ion-modal-view>

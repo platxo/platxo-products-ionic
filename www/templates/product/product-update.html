@@ -1,21 +1,46 @@
-<ion-view view-title="Product Create">
+<ion-view view-title="Product Update">
   <ion-content padding="true">
     <form ng-submit="update()" class="list">
+      <label class="item item-input item-select" ng-click="categoryOpenModal()">
+        <span class="input-label">Category</span>
+        <input type="text" value="{{product.category_name}}">
+      </label>
+      <label class="item item-input item-select" ng-click="typeOpenModal()">
+        <span class="input-label">Type</span>
+        <input type="text" value="{{product.type_name}}">
+      </label>
       <label class="item item-input">
         <span class="input-label">Name</span>
         <input ng-model="product.name" type="text" placeholder="" value="">
       </label>
+			<label class="item item-input">
+        <span class="input-label">Description</span>
+				<textarea ng-model="product.description" rows="2" cols="40"></textarea>
+			</label>
       <label class="item item-input">
-        <span class="input-label">Price</span>
-        <input ng-model="product.price" type="number" min="0" step="0.01">
+        <span class="input-label">Supply Price</span>
+        <input ng-model="product.supply_price" type="number" min="0" step="0.01">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Retail Price</span>
+        <input ng-model="product.retail_price" type="number" min="0" step="0.01">
       </label>
       <label class="item item-input">
         <span class="input-label">Quantity</span>
         <input ng-model="product.quantity" type="number" min="0">
       </label>
+			<ion-toggle ng-model="product.inventory" toggle-class="toggle-balanced">Inventory</ion-toggle>
+			<label class="item item-input item-select" ng-if="product.inventory" ng-click="locationOpenModal()">
+        <span class="input-label">Location</span>
+        <input type="text" value="{{product.location_name}}">
+      </label>
+      <label class="item item-input item-select" ng-if="product.inventory" ng-click="sectionOpenModal()">
+        <span class="input-label">Section</span>
+        <input type="text" value="{{product.section_name}}">
+      </label>
       <button ng-click="takePicture()" class="button button-stable button-block button-outline icon-left ion-ios-camera-outline">Take Picture</button>
-      <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-add">Update</button>
-      <button ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
+      <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-arrow-up">Update</button>
+      <button type="button" ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>
   </ion-content>
 </ion-view>

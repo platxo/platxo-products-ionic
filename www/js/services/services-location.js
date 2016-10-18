@@ -1,8 +1,8 @@
-var productServices = angular.module('productServices', ['ngResource']);
+var locationServices = angular.module('locationServices', ['ngResource']);
 
-productServices.service('productService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
-  var productsUrl = '/api/products/';
-  return $resource($rootScope.version + $rootScope.baseUrl + productsUrl +':id/?format=json', {id: '@id'},{
+locationServices.service('locationService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
+  var locationUrl = '/api/locations/';
+  return $resource($rootScope.version + $rootScope.baseUrl + locationUrl +':id/?format=json', {id: '@id'},{
     list: { method: 'GET', isArray:true, headers:  $rootScope.headersJWT},
     detail: { method: 'GET', headers: $rootScope.headersJWT },
     create: { method: 'POST', headers: $rootScope.headersJWT },

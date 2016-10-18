@@ -7,7 +7,7 @@ categoryRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateP
       views: {
         'tab-categories': {
           templateUrl: 'templates/category/category-list.html',
-          controller: 'categoryController'
+          controller: 'categoryListCtrl'
         }
       }
     })
@@ -16,7 +16,7 @@ categoryRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateP
       views: {
         'tab-categories': {
           templateUrl: 'templates/category/category-detail.html',
-          controller: 'categoryController'
+          controller: 'categoryDetailCtrl'
         }
       }
     })
@@ -25,7 +25,7 @@ categoryRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateP
       views: {
         'tab-categories': {
           templateUrl: 'templates/category/category-create.html',
-          controller: 'categoryController'
+          controller: 'categoryCreateCtrl'
         }
       }
     })
@@ -34,7 +34,7 @@ categoryRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateP
       views: {
         'tab-categories': {
           templateUrl: 'templates/category/category-update.html',
-          controller: 'categoryController'
+          controller: 'categoryUpdateCtrl'
         }
       }
     })
@@ -43,9 +43,11 @@ categoryRoutes.config(['$stateProvider', '$urlRouterProvider', function ($stateP
       views: {
         'tab-categories': {
           templateUrl: 'templates/category/category-delete.html',
-          controller: 'categoryController'
+          controller: 'categoryDeleteCtrl'
         }
       }
     })
+
+    $urlRouterProvider.otherwise('/login');
 
 }]);

@@ -1,19 +1,19 @@
-var categoryControllers = angular.module('categoryControllers', []);
+var locationControllers = angular.module('locationControllers', []);
 
-categoryControllers.controller('categoryListCtrl', [
+locationControllers.controller('locationListCtrl', [
   '$scope',
   '$state',
   '$location',
   '$ionicLoading',
   '$cordovaBarcodeScanner',
-  'categoryService',
+  'locationService',
   function(
     $scope,
     $state,
     $location,
     $ionicLoading,
     $cordovaBarcodeScanner,
-    categoryService
+    locationService
   )
   {
     $ionicLoading.show({
@@ -21,10 +21,10 @@ categoryControllers.controller('categoryListCtrl', [
     noBackdrop: true
     });
 
-	  categoryService.list()
+	  locationService.list()
 	  	.$promise
 	  		.then(function (res) {
-	  			$scope.categories = res
+	  			$scope.locations = res
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
@@ -35,10 +35,10 @@ categoryControllers.controller('categoryListCtrl', [
       })
 
       $scope.refresh = function () {
-        categoryService.list()
+        locationService.list()
     	  	.$promise
     	  		.then(function (res) {
-    	  			$scope.categories = res
+    	  			$scope.locations = res
               $ionicLoading.hide();
               $scope.$broadcast('scroll.refreshComplete');
     	  		}, function (err) {
@@ -64,23 +64,34 @@ categoryControllers.controller('categoryListCtrl', [
     }
 
 	  $scope.$on('$stateChangeSuccess', function() {
-	    $scope.categories = categoryService.list();
+      locationService.list()
+  	  	.$promise
+  	  		.then(function (res) {
+  	  			$scope.locations = res
+            $ionicLoading.hide();
+  	  		}, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+  	  		})
+        })
 	  })
 
 	}
 ]);
 
-categoryControllers.controller('categoryDetailCtrl', [
+locationControllers.controller('locationDetailCtrl', [
   '$scope',
   '$stateParams',
   '$ionicLoading',
-  'categoryService',
+  'locationService',
   '$rootScope',
   function(
     $scope,
     $stateParams,
     $ionicLoading,
-    categoryService,
+    locationService,
     $rootScope
   )
   {
@@ -89,10 +100,10 @@ categoryControllers.controller('categoryDetailCtrl', [
     noBackdrop: true
     });
 
-    categoryService.detail({id: $stateParams.id})
+    locationService.detail({id: $stateParams.id})
       .$promise
         .then(function (res) {
-          $scope.category = res
+          $scope.location = res
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
@@ -105,52 +116,51 @@ categoryControllers.controller('categoryDetailCtrl', [
 	}
 ]);
 
-categoryControllers.controller('categoryCreateCtrl', [
+locationControllers.controller('locationCreateCtrl', [
   '$scope',
   '$state',
-  'categoryService',
+  'locationService',
   '$rootScope',
   function(
     $scope,
     $state,
-    categoryService,
+    locationService,
     $rootScope
   )
   {
-	  $scope.category = {}
+	  $scope.location = {}
 
 	  $scope.create = function () {
-      $scope.category.business = $rootScope.currentBusiness.id;
-      $scope.category.employee = $rootScope.currentEmployee.id;
-	    categoryService.create($scope.category)
+      $scope.location.business = $rootScope.currentBusiness.id;
+      $scope.location.employee = $rootScope.currentEmployee.id;
+	    locationService.create($scope.location)
 	    	.$promise
 	    		.then(function (res) {
-				    $scope.categories = categoryService.list();
-				    $state.go('tab.category-list');
+				    $state.go('location-list');
 	    		}, function (err) {
 
 	    		})
 	  }
 
 	  $scope.cancel = function () {
-	    $state.go('tab.category-list');
+	    $state.go('location-list');
 	  }
 
 	}
 ]);
 
-categoryControllers.controller('categoryUpdateCtrl', [
+locationControllers.controller('locationUpdateCtrl', [
   '$scope',
   '$state',
   '$stateParams',
   '$ionicLoading',
-  'categoryService',
+  'locationService',
   function(
     $scope,
     $state,
     $stateParams,
     $ionicLoading,
-    categoryService
+    locationService
   )
   {
     $ionicLoading.show({
@@ -158,10 +168,10 @@ categoryControllers.controller('categoryUpdateCtrl', [
     noBackdrop: true
     });
 
-    categoryService.detail({id: $stateParams.id})
+    locationService.detail({id: $stateParams.id})
       .$promise
         .then(function (res) {
-          $scope.category = res
+          $scope.location = res
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
@@ -172,34 +182,34 @@ categoryControllers.controller('categoryUpdateCtrl', [
         });
 
     $scope.update = function () {
-	    categoryService.update($scope.category)
+	    locationService.update($scope.location)
 	    	.$promise
 	    		.then(function (res) {
-				    $state.go('tab.category-list');
+				    $state.go('location-list');
 	    		}, function (err) {
 
 	    		})
 	  }
 
 	  $scope.cancel = function () {
-	    $state.go('tab.category-list');
+	    $state.go('location-list');
 	  }
 
 	}
 ]);
 
-categoryControllers.controller('categoryDeleteCtrl', [
+locationControllers.controller('locationDeleteCtrl', [
   '$scope',
   '$state',
   '$stateParams',
   '$ionicLoading',
-  'categoryService',
+  'locationService',
   function(
     $scope,
     $state,
     $stateParams,
     $ionicLoading,
-    categoryService
+    locationService
   )
   {
     $ionicLoading.show({
@@ -207,10 +217,10 @@ categoryControllers.controller('categoryDeleteCtrl', [
     noBackdrop: true
     });
 
-    categoryService.detail({id: $stateParams.id})
+    locationService.detail({id: $stateParams.id})
       .$promise
         .then(function (res) {
-          $scope.category = res
+          $scope.location = res
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
@@ -221,17 +231,17 @@ categoryControllers.controller('categoryDeleteCtrl', [
         });
 
     $scope.delete = function () {
-	    categoryService.delete($scope.category)
+	    locationService.delete($scope.location)
       	.$promise
       		.then(function (res) {
-				    $state.go('tab.category-list');
+				    $state.go('location-list');
       		}, function (err) {
 
       		})
     	  }
 
 	  $scope.cancel = function () {
-	    $state.go('tab.category-list');
+	    $state.go('location-list');
 	  }
 
 	}

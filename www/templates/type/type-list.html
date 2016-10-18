@@ -1,19 +1,24 @@
-<ion-view view-title="Type List">
-  
+<ion-view view-title="Type List" hide-back-button="true">
+
   <ion-nav-buttons side="left">
     <button ui-sref="tab.type-create" class="button icon ion-android-add-circle"></button>
   </ion-nav-buttons>
 
   <ion-nav-buttons side="right">
-    <button class="button icon ion-android-more-vertical" ng-click="menu($event)"></button>
+    <menu-Directive></menu-Directive>
   </ion-nav-buttons>
 
 	<ion-content padding="true">
+    <div class="button-bar">
+  		<a ui-sref="location-list" class="button button-small button-outline button-balanced">Location</a>
+  		<a ui-sref="section-list" class="button button-small button-outline button-balanced">Section</a>
+		</div>
+		<div class="spacer" style="height: 10px;"></div>
+    <ion-refresher  pulling-icon="ion-arrow-down-b" on-refresh="refresh()"></ion-refresher>
 		<ion-list>
-      <search></search>
-			<ion-item ng-click="detail(type)" ng-repeat="type in types | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
+      <search-Directive></search-Directive>
+			<ion-item ui-sref="tab.type-detail({ id: type.id })" ng-repeat="type in types | orderBy:'name' | filter:search.value" class="item item-button-right">
 				<h2>{{ type.name }}</h2>
-
 				<div class="buttons">
 				  <ion-option-button ui-sref="tab.type-update({id: type.id})" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
 				  <ion-option-button ui-sref="tab.type-delete({id: type.id})" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>
@@ -23,5 +28,6 @@
 	</ion-content>
   <ion-footer-bar align-title="left" keyboard-attach class="bar-dark">
     <h1 class="title">Platxo Products</h1>
+    <button on-touch="scan()" class="button icon ion-qr-scanner pull-right"></button>
   </ion-footer-bar>
 </ion-view>

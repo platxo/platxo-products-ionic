@@ -1,20 +1,25 @@
-<ion-view view-title="Product List">
+<ion-view view-title="Product List" hide-back-button="true">
 
 	<ion-nav-buttons side="left">
 		<button ui-sref="tab.product-create" class="button icon ion-android-add-circle"></button>
 	</ion-nav-buttons>
 
 	<ion-nav-buttons side="right">
-	  <button class="button icon ion-android-more-vertical" ng-click="menu($event)"></button>
-	</ion-nav-buttons>
+    <menu-Directive></menu-Directive>
+  </ion-nav-buttons>
 
 	<ion-content padding="true">
+		<div class="button-bar">
+  		<a ui-sref="location-list" class="button button-small button-outline button-balanced">Location</a>
+  		<a ui-sref="section-list" class="button button-small button-outline button-balanced">Section</a>
+		</div>
+		<div class="spacer" style="height: 10px;"></div>
+		<ion-refresher  pulling-icon="ion-arrow-down-b" on-refresh="refresh()"></ion-refresher>
 		<ion-list>
-			<search></search>
-			<ion-item ng-click="detail(product)" ng-repeat="product in products | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
+			<search-Directive></search-Directive>
+			<ion-item ui-sref="tab.product-detail({ id: product.id })" ng-repeat="product in products | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
 				<img ng-src="{{product.extra.picture_url}}">
 				<h2>{{ product.name }}</h2>
-
 				<div class="buttons">
 				  <ion-option-button ui-sref="tab.product-update({id: product.id})" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
 				  <ion-option-button ui-sref="tab.product-delete({id: product.id})" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>

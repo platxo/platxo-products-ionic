@@ -1,19 +1,19 @@
-var typeControllers = angular.module('typeControllers', []);
+var sectionControllers = angular.module('sectionControllers', []);
 
-typeControllers.controller('typeListCtrl', [
+sectionControllers.controller('sectionListCtrl', [
   '$scope',
   '$state',
   '$location',
   '$ionicLoading',
   '$cordovaBarcodeScanner',
-  'typeService',
+  'sectionService',
   function(
     $scope,
     $state,
     $location,
     $ionicLoading,
     $cordovaBarcodeScanner,
-    typeService
+    sectionService
   )
   {
     $ionicLoading.show({
@@ -21,10 +21,10 @@ typeControllers.controller('typeListCtrl', [
     noBackdrop: true
     });
 
-	  typeService.list()
+	  sectionService.list()
 	  	.$promise
 	  		.then(function (res) {
-	  			$scope.types = res
+	  			$scope.sections = res
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
@@ -35,10 +35,10 @@ typeControllers.controller('typeListCtrl', [
       })
 
       $scope.refresh = function () {
-        typeService.list()
+        sectionService.list()
     	  	.$promise
     	  		.then(function (res) {
-    	  			$scope.types = res
+    	  			$scope.sections = res
               $ionicLoading.hide();
               $scope.$broadcast('scroll.refreshComplete');
     	  		}, function (err) {
@@ -56,7 +56,7 @@ typeControllers.controller('typeListCtrl', [
       if (product){
         $location.path('/tab/product-detail/' + product);
       } else {
-        $state.go('tab.product-list');
+        $state.go('product-list');
       }
     }, function (err) {
         alert("Scanning failed: " + err);
@@ -64,24 +64,35 @@ typeControllers.controller('typeListCtrl', [
     }
 
 	  $scope.$on('$stateChangeSuccess', function() {
-	    $scope.types = typeService.list();
+      sectionService.list()
+  	  	.$promise
+  	  		.then(function (res) {
+  	  			$scope.sections = res
+            $ionicLoading.hide();
+  	  		}, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+  	  		})
+        })
 	  })
 
 	}
 ]);
 
-typeControllers.controller('typeDetailCtrl', [
+sectionControllers.controller('sectionDetailCtrl', [
   '$scope',
   '$stateParams',
   '$ionicLoading',
   '$state',
-  'typeService',
+  'sectionService',
   function(
     $scope,
     $stateParams,
     $ionicLoading,
     $state,
-    typeService
+    sectionService
   )
   {
     $ionicLoading.show({
@@ -89,10 +100,10 @@ typeControllers.controller('typeDetailCtrl', [
     noBackdrop: true
     });
 
-    typeService.detail({id: $stateParams.id})
+    sectionService.detail({id: $stateParams.id})
       .$promise
         .then(function (res) {
-          $scope.type = res
+          $scope.section = res
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
@@ -105,15 +116,15 @@ typeControllers.controller('typeDetailCtrl', [
 	}
 ]);
 
-typeControllers.controller('typeCreateCtrl', [
+sectionControllers.controller('sectionCreateCtrl', [
   '$scope',
   '$rootScope',
   '$stateParams',
   '$state',
   '$ionicLoading',
   '$ionicModal',
-  'typeService',
-  'categoryService',
+  'sectionService',
+  'locationService',
   function(
     $scope,
     $rootScope,
@@ -121,8 +132,8 @@ typeControllers.controller('typeCreateCtrl', [
     $state,
     $ionicLoading,
     $ionicModal,
-    typeService,
-    categoryService
+    sectionService,
+    locationService
   )
   {
     $ionicLoading.show({
@@ -130,10 +141,10 @@ typeControllers.controller('typeCreateCtrl', [
     noBackdrop: true
     });
 
-	  categoryService.list()
+	  locationService.list()
 	  	.$promise
 	  		.then(function (res) {
-	  			$scope.categories = res
+	  			$scope.locations = res
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
@@ -143,65 +154,65 @@ typeControllers.controller('typeCreateCtrl', [
 	  		})
       })
 
-	  $scope.type = {}
+	  $scope.section = {}
 
 	  $scope.create = function () {
-      $scope.type.business = $rootScope.currentBusiness.id;
-      $scope.type.employee = $rootScope.currentEmployee.id;
-	    typeService.create($scope.type)
+      $scope.section.business = $rootScope.currentBusiness.id;
+      $scope.section.employee = $rootScope.currentEmployee.id;
+	    sectionService.create($scope.section)
         .$promise
           .then(function (res) {
-      	    $state.go('tab.type-list');
+      	    $state.go('section-list');
           }, function (err) {
 
           })
 	  }
 
-    $scope.selectCategory = function(category) {
-      $scope.type.category_name = category.name;
-      $scope.type.product_category = category.id
-      $scope.categoryModal.hide();
+    $scope.selectLocation = function(location) {
+      $scope.section.location_name = location.name;
+      $scope.section.location = location.id
+      $scope.locationModal.hide();
     };
 
-    //Modal select category
-    $ionicModal.fromTemplateUrl('templates/type/select-category.html', {
+    //Modal select location
+    $ionicModal.fromTemplateUrl('templates/section/select-location.html', {
       scope: $scope,
-      controller: 'typeCreateCtrl',
+      controller: 'sectionCreateCtrl',
       animation: 'slide-in-up',
       focusFirstInput: true
     }).then(function(modal) {
-      $scope.categoryModal = modal;
+      $scope.locationModal = modal;
     });
-    $scope.categoryOpenModal = function() {
-      $scope.categoryModal.show();
+    $scope.locationOpenModal = function() {
+      $scope.locationModal.show();
     };
-    $scope.categoryCloseModal = function() {
-      $scope.categoryModal.hide();
+    $scope.locationCloseModal = function() {
+      $scope.locationModal.hide();
     };
 
     $scope.cancel = function () {
-	    $state.go('tab.type-list');
+	    $state.go('section-list');
 	  }
 
 	}
 ]);
 
-typeControllers.controller('typeUpdateCtrl', [
+sectionControllers.controller('sectionUpdateCtrl', [
   '$scope',
   '$stateParams',
   '$state',
   '$ionicModal',
   '$ionicLoading',
-  'typeService',
-  'categoryService',
+  'sectionService',
+  'locationService',
   function(
     $scope,
     $stateParams,
     $state,
     $ionicModal,
     $ionicLoading,
-    typeService,
-    categoryService
+    sectionService,
+    locationService
   )
   {
     $ionicLoading.show({
@@ -209,10 +220,10 @@ typeControllers.controller('typeUpdateCtrl', [
     noBackdrop: true
     });
 
-	  categoryService.list()
+	  locationService.list()
 	  	.$promise
 	  		.then(function (res) {
-	  			$scope.categories = res
+	  			$scope.locations = res
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
@@ -222,10 +233,10 @@ typeControllers.controller('typeUpdateCtrl', [
 	  		})
       })
 
-    typeService.detail({id: $stateParams.id})
+    sectionService.detail({id: $stateParams.id})
       .$promise
         .then(function (res) {
-          $scope.type = res
+          $scope.section = res
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
@@ -236,56 +247,56 @@ typeControllers.controller('typeUpdateCtrl', [
         });
 
     $scope.update = function () {
-	    typeService.update($scope.type)
+	    sectionService.update($scope.section)
         .$promise
           .then(function (res) {
-      	    $state.go('tab.type-list');
+      	    $state.go('section-list');
           }, function (err) {
 
           })
 	  }
 
-    $scope.selectCategory = function(category) {
-      $scope.type.category_name = category.name;
-      $scope.type.product_category = category.id
-      $scope.categoryModal.hide();
+    $scope.selectLocation = function(location) {
+      $scope.section.location_name = location.name;
+      $scope.section.location = location.id
+      $scope.locationModal.hide();
     };
 
-    //Modal select category
-    $ionicModal.fromTemplateUrl('templates/type/select-category.html', {
+    //Modal select location
+    $ionicModal.fromTemplateUrl('templates/section/select-location.html', {
       scope: $scope,
-      controller: 'typeUpdateCtrl',
+      controller: 'sectionUpdateCtrl',
       animation: 'slide-in-up',
       focusFirstInput: true
     }).then(function(modal) {
-      $scope.categoryModal = modal;
+      $scope.locationModal = modal;
     });
-    $scope.categoryOpenModal = function() {
-      $scope.categoryModal.show();
+    $scope.locationOpenModal = function() {
+      $scope.locationModal.show();
     };
-    $scope.categoryCloseModal = function() {
-      $scope.categoryModal.hide();
+    $scope.locationCloseModal = function() {
+      $scope.locationModal.hide();
     };
 
     $scope.cancel = function () {
-	    $state.go('tab.type-list');
+	    $state.go('section-list');
 	  }
 
 	}
 ]);
 
-typeControllers.controller('typeDeleteCtrl', [
+sectionControllers.controller('sectionDeleteCtrl', [
   '$scope',
   '$stateParams',
   '$state',
   '$ionicLoading',
-  'typeService',
+  'sectionService',
   function(
     $scope,
     $stateParams,
     $state,
     $ionicLoading,
-    typeService
+    sectionService
   )
   {
     $ionicLoading.show({
@@ -293,10 +304,10 @@ typeControllers.controller('typeDeleteCtrl', [
     noBackdrop: true
     });
 
-    typeService.detail({id: $stateParams.id})
+    sectionService.detail({id: $stateParams.id})
       .$promise
         .then(function (res) {
-          $scope.type = res
+          $scope.section = res
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
@@ -308,17 +319,17 @@ typeControllers.controller('typeDeleteCtrl', [
 
 
     $scope.delete = function () {
-	    typeService.delete($scope.type)
+	    sectionService.delete($scope.section)
         .$promise
           .then(function (res) {
-      	    $state.go('tab.type-list');
+      	    $state.go('section-list');
           }, function (err) {
 
           })
 	  }
 
     $scope.cancel = function () {
-	    $state.go('tab.type-list');
+	    $state.go('section-list');
 	  }
 
 	}

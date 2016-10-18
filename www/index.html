@@ -20,28 +20,35 @@
     <!-- your app's js -->
     <script src="js/app.js"></script>
     <!-- product controllers -->
-    <script src="js/controllers/controllers-category.js"></script>
-    <script src="js/controllers/controllers-type.js"></script>
-    <script src="js/controllers/controllers-product.js"></script>
     <script src="js/controllers/controllers-auth.js"></script>
     <script src="js/controllers/controllers-business.js"></script>
     <script src="js/controllers/controllers-settings.js"></script>
-    <script src="js/controllers/controllers-inventory.js"></script>
+    <script src="js/controllers/controllers-location.js"></script>
+    <script src="js/controllers/controllers-section.js"></script>
+    <script src="js/controllers/controllers-category.js"></script>
+    <script src="js/controllers/controllers-type.js"></script>
+    <script src="js/controllers/controllers-product.js"></script>
     <!-- product services -->
+    <script src="js/services/services-auth.js"></script>
+    <script src="js/services/services-business.js"></script>
+    <script src="js/services/services-location.js"></script>
+    <script src="js/services/services-section.js"></script>
     <script src="js/services/services-category.js"></script>
     <script src="js/services/services-type.js"></script>
     <script src="js/services/services-product.js"></script>
-    <script src="js/services/services-auth.js"></script>
-    <script src="js/services/services-business.js"></script>
-    <script src="js/services/services-inventory.js"></script>
     <!-- product routes -->
-    <script src="js/routes/routes-category.js"></script>
-    <script src="js/routes/routes-type.js"></script>
-    <script src="js/routes/routes-product.js"></script>
     <script src="js/routes/routes-auth.js"></script>
     <script src="js/routes/routes-business.js"></script>
     <script src="js/routes/routes-settings.js"></script>
-    <script src="js/routes/routes-inventory.js"></script>
+    <script src="js/routes/routes-location.js"></script>
+    <script src="js/routes/routes-section.js"></script>
+    <script src="js/routes/routes-category.js"></script>
+    <script src="js/routes/routes-type.js"></script>
+    <script src="js/routes/routes-product.js"></script>
+    <!-- business filters -->
+    <!-- business directives -->
+    <script src="js/directives/directives-auth.js"></script>
+    <script src="js/directives/directives-products.js"></script>
   </head>
   <body ng-app="products">
 
@@ -51,7 +58,6 @@
       </ion-nav-bar>
 
       <ion-nav-view>
-        <popover-menu></popover-menu>
       </ion-nav-view>
     </ion-pane>
   </body>
