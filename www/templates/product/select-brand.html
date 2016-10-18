@@ -1,0 +1,13 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-balanced">
+    <h1 class="title">Select Brand</h1><button class="button icon ion-android-cancel" ng-click="brandCloseModal()"></button>
+  </ion-header-bar>
+  <ion-content padding="true">
+    <search-Directive></search-Directive>
+    <ion-radio
+      ng-repeat="brand in brands | orderBy:'name' | filter:search.value"
+      ng-click="selectBrand(brand)"
+    >{{brand.name}}
+    </ion-radio>
+  </ion-content>
+</ion-modal-view>

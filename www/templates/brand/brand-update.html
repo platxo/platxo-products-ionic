@@ -1,0 +1,12 @@
+<ion-view view-title="Brand Update">
+  <ion-content padding="true">
+    <form ng-submit="update()" class="list">
+      <label class="item item-input">
+        <span class="input-label">Name</span>
+        <input ng-model="brand.name" type="text" placeholder="" value="">
+      </label>
+      <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-arrow-up">Update</button>
+      <button type="button" ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
+    </form>
+  </ion-content>
+</ion-view>
