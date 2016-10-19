@@ -3,7 +3,7 @@
 		<form ng-submit="create()" class="list">
       <label class="item item-input item-select" ng-click="categoryOpenModal()">
         <span class="input-label">Category</span>
-				<input type="text" value="{{type.category_name}}">
+				<input type="text" ng-model="type.category_name" value="{{type.category_name}}">
       </label>
       </label>
       <label class="item item-input">

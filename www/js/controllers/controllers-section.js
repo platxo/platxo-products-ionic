@@ -237,6 +237,7 @@ sectionControllers.controller('sectionUpdateCtrl', [
       .$promise
         .then(function (res) {
           $scope.section = res
+          $scope.section.location_name = $scope.section.extra.location_name;
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();

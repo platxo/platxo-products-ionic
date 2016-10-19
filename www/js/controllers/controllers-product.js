@@ -115,24 +115,28 @@ productControllers.controller('productCreateCtrl', [
   '$state',
   '$ionicLoading',
   '$ionicModal',
+  '$cordovaCamera',
   'productService',
   'locationService',
-  'brandService',
   'sectionService',
+  'brandService',
   'categoryService',
   'typeService',
+  'taxService',
   function(
     $scope,
     $rootScope,
     $state,
     $ionicLoading,
     $ionicModal,
+    $cordovaCamera,
     productService,
     locationService,
-    brandService,
     sectionService,
+    brandService,
     categoryService,
-    typeService
+    typeService,
+    taxService
   )
   {
     $ionicLoading.show({
@@ -197,6 +201,19 @@ productControllers.controller('productCreateCtrl', [
         .then(function (res) {
           $ionicLoading.hide();
            $scope.types = res;
+        }, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+        })
+      })
+
+    taxService.list()
+      .$promise
+        .then(function (res) {
+          $ionicLoading.hide();
+           $scope.taxes = res;
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -329,6 +346,49 @@ productControllers.controller('productCreateCtrl', [
       $scope.typeModal.hide();
     };
 
+    $scope.selectTax = function(tax) {
+      $scope.product.tax_name = tax.name;
+      $scope.product.tax = tax.id;
+      $scope.typeModal.hide();
+    };
+
+    //Modal select type
+    $ionicModal.fromTemplateUrl('templates/product/select-tax.html', {
+      scope: $scope,
+      controller: 'productCreateCtrl',
+      animation: 'slide-in-up',
+      focusFirstInput: true
+    }).then(function(modal) {
+      $scope.taxModal = modal;
+    });
+    $scope.taxOpenModal = function() {
+      $scope.taxModal.show();
+    };
+    $scope.taxCloseModal = function() {
+      $scope.taxModal.hide();
+    };
+
+    $scope.takePicture = function() {
+      var options = {
+          quality : 100,
+          destinationType : Camera.DestinationType.DATA_URL,
+          sourceType : Camera.PictureSourceType.CAMERA,
+          allowEdit : true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 300,
+          targetHeight: 300,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          correctOrientation:true
+      };
+
+    $cordovaCamera.getPicture(options).then(function(imageData) {
+      $scope.product.picture = "data:image/jpeg;base64," + imageData;
+    }, function(err) {
+          alert(JSON.stringify(err));
+    });
+    }
+
     $scope.cancel = function () {
       $state.go('tab.product-list');
     }
@@ -340,30 +400,75 @@ productControllers.controller('productUpdateCtrl', [
   '$scope',
   '$stateParams',
   '$state',
-  '$location',
   '$ionicLoading',
   '$ionicModal',
   '$cordovaCamera',
   'productService',
+  'locationService',
+  'sectionService',
+  'brandService',
   'categoryService',
   'typeService',
+  'taxService',
   function(
     $scope,
     $stateParams,
     $state,
-    $location,
     $ionicLoading,
     $ionicModal,
     $cordovaCamera,
     productService,
+    locationService,
+    sectionService,
+    brandService,
     categoryService,
-    typeService
+    typeService,
+    taxService
   )
   {
     $ionicLoading.show({
       template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
       noBackdrop: true
     });
+
+    locationService.list()
+	  	.$promise
+	  		.then(function (res) {
+	  			$scope.locations = res
+          $ionicLoading.hide();
+	  		}, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+	  		})
+      })
+
+    sectionService.list()
+	  	.$promise
+	  		.then(function (res) {
+	  			$scope.sections = res
+          $ionicLoading.hide();
+	  		}, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+	  		})
+      })
+
+    brandService.list()
+	  	.$promise
+	  		.then(function (res) {
+	  			$scope.brands = res
+          $ionicLoading.hide();
+	  		}, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+	  		})
+      })
 
     categoryService.list()
       .$promise
@@ -391,10 +496,29 @@ productControllers.controller('productUpdateCtrl', [
         })
       })
 
+    taxService.list()
+      .$promise
+        .then(function (res) {
+          $ionicLoading.hide();
+           $scope.taxes = res;
+        }, function (err) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: 'Network Error',
+            scope: $scope
+        })
+      })
+
     productService.detail({id: $stateParams.id})
       .$promise
         .then(function (res) {
           $scope.product = res
+          $scope.product.category_name = $scope.product.extra.product_category_name;
+          $scope.product.type_name = $scope.product.extra.product_type_name;
+          $scope.product.location_name = $scope.product.extra.location_name;
+          $scope.product.section_name = $scope.product.extra.section_name;
+          $scope.product.brand_name = $scope.product.extra.brand_name;
+          $scope.product.tax_name = $scope.product.extra.tax_name;
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
@@ -459,6 +583,28 @@ productControllers.controller('productUpdateCtrl', [
       $scope.sectionModal.hide();
     };
 
+    $scope.selectBrand = function(brand) {
+      $scope.product.brand_name = brand.name;
+      $scope.product.brand = brand.id;
+      $scope.brandModal.hide();
+    };
+
+    //Modal select brand
+    $ionicModal.fromTemplateUrl('templates/product/select-brand.html', {
+      scope: $scope,
+      controller: 'productCreateCtrl',
+      animation: 'slide-in-up',
+      focusFirstInput: true
+    }).then(function(modal) {
+      $scope.brandModal = modal;
+    });
+    $scope.brandOpenModal = function() {
+      $scope.brandModal.show();
+    };
+    $scope.brandCloseModal = function() {
+      $scope.brandModal.hide();
+    };
+
     $scope.selectCategory = function(category) {
       $scope.product.category_name = category.name;
       $scope.product.product_category = category.id;
@@ -468,7 +614,7 @@ productControllers.controller('productUpdateCtrl', [
     //Modal select category
     $ionicModal.fromTemplateUrl('templates/product/select-category.html', {
       scope: $scope,
-      controller: 'productUpdateCtrl',
+      controller: 'productCreateCtrl',
       animation: 'slide-in-up',
       focusFirstInput: true
     }).then(function(modal) {
@@ -503,6 +649,28 @@ productControllers.controller('productUpdateCtrl', [
       $scope.typeModal.hide();
     };
 
+    $scope.selectTax = function(tax) {
+      $scope.product.tax_name = tax.name;
+      $scope.product.tax = tax.id;
+      $scope.typeModal.hide();
+    };
+
+    //Modal select type
+    $ionicModal.fromTemplateUrl('templates/product/select-tax.html', {
+      scope: $scope,
+      controller: 'productCreateCtrl',
+      animation: 'slide-in-up',
+      focusFirstInput: true
+    }).then(function(modal) {
+      $scope.taxModal = modal;
+    });
+    $scope.taxOpenModal = function() {
+      $scope.taxModal.show();
+    };
+    $scope.taxCloseModal = function() {
+      $scope.taxModal.hide();
+    };
+
     $scope.takePicture = function() {
       var options = {
           quality : 100,
@@ -519,13 +687,13 @@ productControllers.controller('productUpdateCtrl', [
 
     $cordovaCamera.getPicture(options).then(function(imageData) {
       $scope.product.picture = "data:image/jpeg;base64," + imageData;
-      productService.update($scope.product)
-        .$promise
-          .then(function (res) {
-            $state.go('tab.product-detail', {'id':$scope.product.id});
-          }, function (err) {
-
-          })
+      // productService.update($scope.product)
+      //   .$promise
+      //     .then(function (res) {
+      //       $state.go('tab.product-detail', {'id':$scope.product.id});
+      //     }, function (err) {
+      //
+      //     })
     }, function(err) {
           alert(JSON.stringify(err));
     });

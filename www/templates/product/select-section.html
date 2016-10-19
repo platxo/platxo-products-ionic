@@ -7,7 +7,8 @@
     <ion-radio
       ng-repeat="section in sections | orderBy:'name' | filter:search.value"
       ng-click="selectSection(section)"
-    >{{section.name}}
+    ><h2>{{section.name}}</h2>
+    <h4>{{section.extra.location_name}}</h4>
     </ion-radio>
   </ion-content>
 </ion-modal-view>

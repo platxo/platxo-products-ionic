@@ -8,6 +8,8 @@ var products = angular.module('products', [
   'businessControllers',
   'businessRoutes',
   'businessServices',
+  'settingControllers',
+  'settingRoutes',
   'locationControllers',
   'locationServices',
   'locationRoutes',
@@ -26,8 +28,6 @@ var products = angular.module('products', [
   'productControllers',
   'productServices',
   'productRoutes',
-  'settingControllers',
-  'settingRoutes',
   'productsDirectives'
 ])
 

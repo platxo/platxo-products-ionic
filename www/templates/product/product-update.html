@@ -3,15 +3,15 @@
     <form ng-submit="update()" class="list">
       <label class="item item-input item-select" ng-click="categoryOpenModal()">
         <span class="input-label">Category</span>
-        <input type="text" value="{{product.category_name}}">
+        <input type="text" ng-model="product.category_name" value="{{product.category_name}}">
       </label>
       <label class="item item-input item-select" ng-click="typeOpenModal()">
         <span class="input-label">Type</span>
-        <input type="text" value="{{product.type_name}}">
+        <input type="text" ng-model="product.type_name" value="{{product.type_name}}">
       </label>
-      <label class="item item-input item-select" ng-click="brandOpenModal()">
+			<label class="item item-input item-select" ng-click="brandOpenModal()">
         <span class="input-label">Brand</span>
-        <input type="text" value="{{product.brand}}">
+        <input type="text" ng-model="product.brand_name" value="{{product.brand_name}}">
       </label>
       <label class="item item-input">
         <span class="input-label">Name</span>
@@ -29,20 +29,24 @@
         <span class="input-label">Retail Price</span>
         <input ng-model="product.retail_price" type="number" min="0" step="0.01">
       </label>
-      <label class="item item-input">
+			<label class="item item-input item-select" ng-click="taxOpenModal()">
+        <span class="input-label">Tax</span>
+        <input type="text" ng-model="product.tax_name" value="{{product.tax_name}}">
+      </label>
+			<ion-toggle ng-model="product.inventory" toggle-class="toggle-balanced">Inventory</ion-toggle>
+			<label class="item item-input" ng-if="product.inventory">
         <span class="input-label">Quantity</span>
         <input ng-model="product.quantity" type="number" min="0">
       </label>
-			<ion-toggle ng-model="product.inventory" toggle-class="toggle-balanced">Inventory</ion-toggle>
 			<label class="item item-input item-select" ng-if="product.inventory" ng-click="locationOpenModal()">
         <span class="input-label">Location</span>
-        <input type="text" value="{{product.location_name}}">
+        <input type="text" ng-model="product.location_name" value="{{product.location_name}}">
       </label>
       <label class="item item-input item-select" ng-if="product.inventory" ng-click="sectionOpenModal()">
         <span class="input-label">Section</span>
-        <input type="text" value="{{product.section_name}}">
+        <input type="text" ng-model="product.section_name" value="{{product.section_name}}">
       </label>
-      <button ng-click="takePicture()" class="button button-stable button-block button-outline icon-left ion-ios-camera-outline">Take Picture</button>
+      <button type="button" ng-click="takePicture()" class="button button-stable button-block button-outline icon-left ion-ios-camera-outline">Take Picture</button>
       <button type="submit" class="button button-balanced button-block button-outline icon-left ion-android-arrow-up">Update</button>
       <button type="button" ng-click="cancel()" class="button button-positive button-block button-outline icon-left ion-android-arrow-back">Cancel</button>
     </form>

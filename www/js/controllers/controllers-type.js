@@ -226,6 +226,7 @@ typeControllers.controller('typeUpdateCtrl', [
       .$promise
         .then(function (res) {
           $scope.type = res
+          $scope.type.category_name = $scope.type.extra.product_category_name;
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();

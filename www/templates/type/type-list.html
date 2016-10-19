@@ -20,6 +20,7 @@
       <search-Directive></search-Directive>
 			<ion-item ui-sref="tab.type-detail({ id: type.id })" ng-repeat="type in types | orderBy:'name' | filter:search.value" class="item item-button-right">
 				<h2>{{ type.name }}</h2>
+        <h4>{{ type.extra.product_category_name }}</h4>
 				<div class="buttons">
 				  <ion-option-button ui-sref="tab.type-update({id: type.id})" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
 				  <ion-option-button ui-sref="tab.type-delete({id: type.id})" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>

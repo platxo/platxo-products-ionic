@@ -12,6 +12,7 @@
         <h2>Category: {{product.extra.product_category_name}}</h2>
         <h2>Type: {{product.extra.product_type_name}}</h2>
         <h2>Price: {{product.retail_price | currency : $ : 0 }}</h2>
+				<h2>Tax: {{product.extra.tax_name }}</h2>
         <h2>Inventory: {{product.inventory }}</h2>
         <h2>Quantity: {{product.quantity}}</h2>
         <h2>Created: {{product.created | date:'medium'}}</h2>
