@@ -64,7 +64,18 @@ categoryControllers.controller('categoryListCtrl', [
     }
 
 	  $scope.$on('$stateChangeSuccess', function() {
-	    $scope.categories = categoryService.list();
+      categoryService.list()
+  	  	.$promise
+  	  		.then(function (res) {
+  	  			$scope.categories = res
+            $ionicLoading.hide();
+  	  		}, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+  	  		})
+        })
 	  })
 
 	}

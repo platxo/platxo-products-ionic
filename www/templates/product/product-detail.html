@@ -4,9 +4,9 @@
       <div class="item item-divider">{{product.name}}</div>
 			<div class="item item-image">
         <ion-spinner ng-hide="product.id != null" icon="dots"></ion-spinner>
-        <img ng-src="{{product.extra.picture_url}}">
+        <img class="full-image" ng-src="{{product.extra.picture_url}}">
       </div>
-      <div class="item item-body">
+      <div class="item item-text-wrap">
         <h2>Id: {{product.id}}</h2>
         <h2>Name: {{product.name}}</h2>
 				<h2>Brand: {{product.extra.brand_name}}</h2>
@@ -20,14 +20,16 @@
 				<h2>Tax: {{product.extra.tax_name }}</h2>
         <h2>Inventory: {{product.inventory }}</h2>
         <h2>Quantity: {{product.quantity}}</h2>
-        <h2>Created: {{product.created | date:'medium'}}</h2>
-        <h2>Updated: {{product.updated | date:'medium'}}</h2>
       </div>
+			<div class="item item-divider">
+				<h2>Created: {{product.created | date:'medium'}}</h2>
+				<h2>Updated: {{product.updated | date:'medium'}}</h2>
+  		</div>
     </div>
 		<div class="item item-image">
       <ion-spinner ng-hide="product.extra.code_url != null" icon="dots"></ion-spinner>
       <img ng-src="{{product.extra.code_url}}">
-      <button ng-click="print()" class="button button-balanced  button-block button-outline icon-left ion-ios-printer-outline">Print</button>
     </div>
+		<button ng-click="print()" class="button button-balanced  button-block button-outline icon-left ion-ios-printer-outline">Print</button>
 	</ion-content>
 </ion-view>

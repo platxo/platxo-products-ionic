@@ -34,22 +34,6 @@ businessControllers.controller('businessListCtrl', [
           })
         })
 
-      $scope.refresh = function () {
-        businessService.list()
-          .$promise
-            .then(function (res) {
-              $scope.business = res
-              $ionicLoading.hide();
-              $scope.$broadcast('scroll.refreshComplete');
-            }, function (err) {
-              $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
-              })
-            })
-        }
-
     $scope.selectBusiness = function(bs) {
       $rootScope.currentBusiness = bs
       window.localStorage.setItem('business', JSON.stringify($rootScope.currentBusiness));

@@ -6,7 +6,6 @@ productControllers.controller('productListCtrl', [
   '$location',
   '$ionicLoading',
   '$cordovaBarcodeScanner',
-  '$timeout',
   'productService',
   function(
     $scope,
@@ -14,7 +13,6 @@ productControllers.controller('productListCtrl', [
     $location,
     $ionicLoading,
     $cordovaBarcodeScanner,
-    $timeout,
     productService
 
   )
@@ -35,9 +33,6 @@ productControllers.controller('productListCtrl', [
             template: 'Network Error',
             scope: $scope
         })
-        $timeout(function() {
-             $ionicLoading.hide();
-          }, 2000);
       })
 
     $scope.refresh = function () {
@@ -70,7 +65,18 @@ productControllers.controller('productListCtrl', [
     }
 
 	  $scope.$on('$stateChangeSuccess', function() {
-	    $scope.products = productService.list();
+      productService.list()
+        .$promise
+          .then(function (res) {
+             $scope.products = res
+             $ionicLoading.hide();
+          }, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+          })
+        })
 	  })
 
 	}
@@ -105,7 +111,6 @@ productControllers.controller('productDetailCtrl', [
             scope: $scope
           })
         });
-
 	}
 ]);
 

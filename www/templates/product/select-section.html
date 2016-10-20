@@ -5,7 +5,7 @@
   <ion-content padding="true">
     <search-Directive></search-Directive>
     <ion-radio
-      ng-repeat="section in sections | orderBy:'name' | filter:search.value"
+      ng-repeat="section in sections | orderBy:'name' | filter:search.value | filter:product.location"
       ng-click="selectSection(section)"
     ><h2>{{section.name}}</h2>
     <h4>{{section.extra.location_name}}</h4>

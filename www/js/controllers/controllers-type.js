@@ -64,7 +64,18 @@ typeControllers.controller('typeListCtrl', [
     }
 
 	  $scope.$on('$stateChangeSuccess', function() {
-	    $scope.types = typeService.list();
+      typeService.list()
+  	  	.$promise
+  	  		.then(function (res) {
+  	  			$scope.types = res
+            $ionicLoading.hide();
+  	  		}, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+  	  		})
+        })
 	  })
 
 	}

@@ -5,7 +5,7 @@
   <ion-content padding="true">
     <search-Directive></search-Directive>
     <ion-radio
-      ng-repeat="type in types | orderBy:'name' | filter:search.value"
+      ng-repeat="type in types | orderBy:'name' | filter:search.value| filter:product.product_category"
       ng-click="selectType(type)"
     ><h2>{{type.name}}</h2>
     <h4>{{type.extra.product_category_name}}</h4>

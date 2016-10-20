@@ -18,7 +18,7 @@
 		<ion-refresher  pulling-icon="ion-arrow-down-b" on-refresh="refresh()"></ion-refresher>
 		<ion-list>
 			<search-Directive></search-Directive>
-			<ion-item ui-sref="tab.product-detail({ id: product.id })" ng-repeat="product in products | orderBy:'name' | filter:search.value" class="item item-button-right item-thumbnail-left">
+			<ion-item ui-sref="tab.product-detail({ id: product.id })" collection-repeat="product in products | orderBy:'name' | filter:search.value" item-render-buffer="1" class="item item-button-right item-thumbnail-left">
 				<img ng-src="{{product.extra.picture_url}}">
 				<h2>{{ product.name }}</h2>
 				<div class="buttons">
