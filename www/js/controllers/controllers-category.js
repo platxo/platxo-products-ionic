@@ -136,7 +136,6 @@ categoryControllers.controller('categoryCreateCtrl', [
 	    categoryService.create($scope.category)
 	    	.$promise
 	    		.then(function (res) {
-				    $scope.categories = categoryService.list();
 				    $state.go('tab.category-list');
 	    		}, function (err) {
 

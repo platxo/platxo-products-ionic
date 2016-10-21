@@ -25,8 +25,8 @@ productControllers.controller('productListCtrl', [
     productService.list()
       .$promise
         .then(function (res) {
-           $scope.products = res
-           $ionicLoading.hide();
+          $scope.products = res
+          $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
           $ionicLoading.show({
@@ -34,6 +34,22 @@ productControllers.controller('productListCtrl', [
             scope: $scope
         })
       })
+
+    $scope.loadMore = function() {
+      productService.list()
+        .$promise
+          .then(function (res) {
+            $scope.products = res
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+            $ionicLoading.hide();
+          }, function (err) {
+            $ionicLoading.hide();
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+          })
+        })
+  	};
 
     $scope.refresh = function () {
       productService.list()
@@ -64,19 +80,25 @@ productControllers.controller('productListCtrl', [
        });
     }
 
-	  $scope.$on('$stateChangeSuccess', function() {
-      productService.list()
-        .$promise
-          .then(function (res) {
-             $scope.products = res
-             $ionicLoading.hide();
-          }, function (err) {
-            $ionicLoading.hide();
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
+	  $scope.$on('$stateChangeSuccess', function(event, toState) {
+      debugger
+      if (toState.name === 'tab.product-list') {
+        productService.list()
+          .$promise
+            .then(function (res) {
+              debugger
+
+              $scope.products = res
+              $ionicLoading.hide();
+            }, function (err) {
+              $ionicLoading.hide();
+              $ionicLoading.show({
+                template: 'Network Error',
+                scope: $scope
+            })
           })
-        })
+      }
+
 	  })
 
 	}
