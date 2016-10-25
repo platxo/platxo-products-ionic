@@ -28,10 +28,14 @@ locationControllers.controller('locationListCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
+          if (err.data.detail === "Signature has expired.") {
+            $scope.showAlertExpired()
+          } else {
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+          })
+          }
       })
 
       $scope.refresh = function () {
@@ -63,19 +67,21 @@ locationControllers.controller('locationListCtrl', [
        });
     }
 
-	  $scope.$on('$stateChangeSuccess', function() {
-      locationService.list()
-  	  	.$promise
-  	  		.then(function (res) {
-  	  			$scope.locations = res
-            $ionicLoading.hide();
-  	  		}, function (err) {
-            $ionicLoading.hide();
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-  	  		})
-        })
+    $scope.$on('$stateChangeSuccess', function(event, toState) {
+      if (toState.name === 'location-list') {
+        locationService.list()
+          .$promise
+            .then(function (res) {
+              $scope.locations = res
+              $ionicLoading.hide();
+            }, function (err) {
+              $ionicLoading.hide();
+              $ionicLoading.show({
+                template: 'Network Error',
+                scope: $scope
+            })
+          })
+      }
 	  })
 
 	}

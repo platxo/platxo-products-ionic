@@ -5,6 +5,8 @@ categoryControllers.controller('categoryListCtrl', [
   '$state',
   '$location',
   '$ionicLoading',
+  '$ionicActionSheet',
+  '$ionicTabsDelegate',
   '$cordovaBarcodeScanner',
   'categoryService',
   function(
@@ -12,6 +14,8 @@ categoryControllers.controller('categoryListCtrl', [
     $state,
     $location,
     $ionicLoading,
+    $ionicActionSheet,
+    $ionicTabsDelegate,
     $cordovaBarcodeScanner,
     categoryService
   )
@@ -22,16 +26,20 @@ categoryControllers.controller('categoryListCtrl', [
     });
 
 	  categoryService.list()
-	  	.$promise
-	  		.then(function (res) {
-	  			$scope.categories = res
-          $ionicLoading.hide();
-	  		}, function (err) {
-          $ionicLoading.hide();
+    .$promise
+      .then(function (res) {
+        $scope.categories = res
+        $ionicLoading.hide();
+      }, function (err) {
+        $ionicLoading.hide();
+        if (err.data.detail === "Signature has expired.") {
+          $scope.showAlertExpired()
+        } else {
           $ionicLoading.show({
             template: 'Network Error',
             scope: $scope
-	  		})
+        })
+        }
       })
 
       $scope.refresh = function () {
@@ -63,19 +71,52 @@ categoryControllers.controller('categoryListCtrl', [
        });
     }
 
-	  $scope.$on('$stateChangeSuccess', function() {
-      categoryService.list()
-  	  	.$promise
-  	  		.then(function (res) {
-  	  			$scope.categories = res
-            $ionicLoading.hide();
-  	  		}, function (err) {
-            $ionicLoading.hide();
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-  	  		})
-        })
+    $scope.goForward = function () {
+        var selected = $ionicTabsDelegate.selectedIndex();
+        if (selected != -1) {
+            $ionicTabsDelegate.select(selected + 1);
+        }
+    }
+
+    $scope.goBack = function () {
+        var selected = $ionicTabsDelegate.selectedIndex();
+        if (selected != -1 && selected != 0) {
+            $ionicTabsDelegate.select(selected - 1);
+        }
+    }
+
+    $scope.showActionsheet = function(category) {
+      $ionicActionSheet.show({
+        buttons: [
+          { text: 'Update <i class="icon ion-edit"></i>' },
+          { text: 'Delete <i class="icon ion-android-delete"></i>' },
+        ],
+        buttonClicked: function(index) {
+          if (index == 0) {
+            $state.go('tab.category-update', {id:category.id});
+          } else {
+            $state.go('tab.category-delete', {id:category.id});
+          }
+          return true;
+        },
+      });
+    };
+
+	  $scope.$on('$stateChangeSuccess', function(event, toState) {
+      if (toState.name === 'tab.category-list') {
+        categoryService.list()
+    	  	.$promise
+    	  		.then(function (res) {
+    	  			$scope.categories = res
+              $ionicLoading.hide();
+    	  		}, function (err) {
+              $ionicLoading.hide();
+              $ionicLoading.show({
+                template: 'Network Error',
+                scope: $scope
+    	  		})
+          })
+      }
 	  })
 
 	}

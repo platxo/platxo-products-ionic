@@ -28,10 +28,14 @@ sectionControllers.controller('sectionListCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
+          if (err.data.detail === "Signature has expired.") {
+            $scope.showAlertExpired()
+          } else {
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+          })
+          }
       })
 
       $scope.refresh = function () {
@@ -63,19 +67,21 @@ sectionControllers.controller('sectionListCtrl', [
        });
     }
 
-	  $scope.$on('$stateChangeSuccess', function() {
-      sectionService.list()
-  	  	.$promise
-  	  		.then(function (res) {
-  	  			$scope.sections = res
-            $ionicLoading.hide();
-  	  		}, function (err) {
-            $ionicLoading.hide();
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-  	  		})
-        })
+    $scope.$on('$stateChangeSuccess', function(event, toState) {
+      if (toState.name === 'section-list') {
+        sectionService.list()
+          .$promise
+            .then(function (res) {
+              $scope.sections = res
+              $ionicLoading.hide();
+            }, function (err) {
+              $ionicLoading.hide();
+              $ionicLoading.show({
+                template: 'Network Error',
+                scope: $scope
+            })
+          })
+      }
 	  })
 
 	}
@@ -237,7 +243,7 @@ sectionControllers.controller('sectionUpdateCtrl', [
       .$promise
         .then(function (res) {
           $scope.section = res
-          $scope.section.location_name = $scope.section.extra.location_name;
+          $scope.section.location_name = $scope.section.location_name;
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();

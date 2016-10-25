@@ -3,7 +3,7 @@
 		<form ng-submit="create()" class="list">
       <label class="item item-input item-select" ng-click="locationOpenModal()">
         <span class="input-label">Location</span>
-				<input type="text" value="{{section.location_name}}">
+				<input type="text" ng-model="section.location_name" value="{{section.location_name}}">
       </label>
       </label>
       <label class="item item-input">

@@ -5,6 +5,8 @@ typeControllers.controller('typeListCtrl', [
   '$state',
   '$location',
   '$ionicLoading',
+  '$ionicActionSheet',
+  '$ionicTabsDelegate',
   '$cordovaBarcodeScanner',
   'typeService',
   function(
@@ -12,6 +14,8 @@ typeControllers.controller('typeListCtrl', [
     $state,
     $location,
     $ionicLoading,
+    $ionicActionSheet,
+    $ionicTabsDelegate,
     $cordovaBarcodeScanner,
     typeService
   )
@@ -28,10 +32,14 @@ typeControllers.controller('typeListCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
+          if (err.data.detail === "Signature has expired.") {
+            $scope.showAlertExpired()
+          } else {
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+          })
+          }
       })
 
       $scope.refresh = function () {
@@ -63,19 +71,52 @@ typeControllers.controller('typeListCtrl', [
        });
     }
 
-	  $scope.$on('$stateChangeSuccess', function() {
-      typeService.list()
-  	  	.$promise
-  	  		.then(function (res) {
-  	  			$scope.types = res
-            $ionicLoading.hide();
-  	  		}, function (err) {
-            $ionicLoading.hide();
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-  	  		})
-        })
+    $scope.goForward = function () {
+        var selected = $ionicTabsDelegate.selectedIndex();
+        if (selected != -1) {
+            $ionicTabsDelegate.select(selected + 1);
+        }
+    }
+
+    $scope.goBack = function () {
+        var selected = $ionicTabsDelegate.selectedIndex();
+        if (selected != -1 && selected != 0) {
+            $ionicTabsDelegate.select(selected - 1);
+        }
+    }
+
+    $scope.showActionsheet = function(type) {
+      $ionicActionSheet.show({
+        buttons: [
+          { text: 'Update <i class="icon ion-edit"></i>' },
+          { text: 'Delete <i class="icon ion-android-delete"></i>' },
+        ],
+        buttonClicked: function(index) {
+          if (index == 0) {
+            $state.go('tab.type-update', {id:type.id});
+          } else {
+            $state.go('tab.type-delete', {id:type.id});
+          }
+          return true;
+        },
+      });
+    };
+
+	  $scope.$on('$stateChangeSuccess', function(event, toState) {
+      if (toState.name === 'tab.type-list') {
+        typeService.list()
+    	  	.$promise
+    	  		.then(function (res) {
+    	  			$scope.types = res
+              $ionicLoading.hide();
+    	  		}, function (err) {
+              $ionicLoading.hide();
+              $ionicLoading.show({
+                template: 'Network Error',
+                scope: $scope
+    	  		})
+          })
+      }
 	  })
 
 	}
@@ -237,7 +278,7 @@ typeControllers.controller('typeUpdateCtrl', [
       .$promise
         .then(function (res) {
           $scope.type = res
-          $scope.type.category_name = $scope.type.extra.product_category_name;
+          $scope.type.category_name = $scope.type.product_category_name;
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();

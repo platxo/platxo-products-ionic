@@ -8,7 +8,7 @@
     <menu-Directive></menu-Directive>
   </ion-nav-buttons>
 
-	<ion-content padding="true">
+	<ion-content on-swipe-right="goBack()" on-swipe-left="goForward()" padding="true">
     <div class="button-bar">
   		<a ui-sref="location-list" class="button button-small button-outline button-balanced">Location</a>
   		<a ui-sref="section-list" class="button button-small button-outline button-balanced">Section</a>
@@ -18,12 +18,13 @@
     <ion-refresher  pulling-icon="ion-arrow-down-b" on-refresh="refresh()"></ion-refresher>
 		<ion-list>
       <search-Directive></search-Directive>
-			<ion-item ui-sref="tab.category-detail({ id: category.id })" ng-repeat="category in categories | orderBy:'name' | filter:search.value" class="item item-button-right">
+			<ion-item
+      ui-sref="tab.category-detail({ id: category.id })"
+      collection-repeat="category in categories | orderBy:'name' | filter:search.value"
+      item-height="100px"
+      on-hold="showActionsheet(category)"
+      >
 				<h2>{{ category.name }}</h2>
-				<div class="buttons">
-				  <ion-option-button ui-sref="tab.category-update({id: category.id})" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
-				  <ion-option-button ui-sref="tab.category-delete({id: category.id})" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>
-				</div>
 			</ion-item>
 		</ion-list>
 	</ion-content>

@@ -14,7 +14,7 @@
       <search-Directive></search-Directive>
 			<ion-item ui-sref="section-detail({ id: section.id })" ng-repeat="section in sections | orderBy:'name' | filter:search.value" class="item item-button-right">
 				<h2>{{ section.name }}</h2>
-        <h4>{{ section.extra.location_name }}</h4>
+        <h4>{{ section.location_name }}</h4>
 				<div class="buttons">
 				  <ion-option-button ui-sref="section-update({id: section.id})" class="button button-dark button-outline icon-center ion-edit"></ion-option-button>
 				  <ion-option-button ui-sref="section-delete({id: section.id})" class="button button-dark button-outline icon-center ion-android-delete"></ion-option-button>

@@ -28,10 +28,14 @@ brandControllers.controller('brandListCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
+          if (err.data.detail === "Signature has expired.") {
+            $scope.showAlertExpired()
+          } else {
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+          })
+          }
       })
 
       $scope.refresh = function () {
@@ -63,19 +67,21 @@ brandControllers.controller('brandListCtrl', [
        });
     }
 
-	  $scope.$on('$stateChangeSuccess', function() {
-      brandService.list()
-  	  	.$promise
-  	  		.then(function (res) {
-  	  			$scope.brands = res
-            $ionicLoading.hide();
-  	  		}, function (err) {
-            $ionicLoading.hide();
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-  	  		})
-        })
+    $scope.$on('$stateChangeSuccess', function(event, toState) {
+      if (toState.name === 'brand-list') {
+        brandService.list()
+          .$promise
+            .then(function (res) {
+              $scope.brands = res
+              $ionicLoading.hide();
+            }, function (err) {
+              $ionicLoading.hide();
+              $ionicLoading.show({
+                template: 'Network Error',
+                scope: $scope
+            })
+          })
+      }
 	  })
 
 	}

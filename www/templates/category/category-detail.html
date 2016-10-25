@@ -1,9 +1,11 @@
 <ion-view view-title="Category Detail">
 	<ion-content padding="true">
-
-		<div class="item item-body">
-      <h2>Id: {{category.id}}</h2>
-      <h2>Name: {{category.name}}</h2>
-    </div>
+		<div class="item item-body item-button-right">
+			{{category.name}}
+			<div class="buttons">
+				<button ui-sref="tab.category-update({id: category.id})" class="button button-dark button-clear icon-center ion-edit"></ion-option-button>
+				<button ui-sref="tab.category-delete({id: category.id})" class="button button-dark button-clear icon-center ion-android-delete"></ion-option-button>
+			</div>
+		</div>
 	</ion-content>
 </ion-view>

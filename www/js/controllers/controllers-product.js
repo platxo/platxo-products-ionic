@@ -5,6 +5,8 @@ productControllers.controller('productListCtrl', [
   '$state',
   '$location',
   '$ionicLoading',
+  '$ionicTabsDelegate',
+  '$ionicActionSheet',
   '$cordovaBarcodeScanner',
   'productService',
   function(
@@ -12,9 +14,10 @@ productControllers.controller('productListCtrl', [
     $state,
     $location,
     $ionicLoading,
+    $ionicTabsDelegate,
+    $ionicActionSheet,
     $cordovaBarcodeScanner,
     productService
-
   )
   {
     $ionicLoading.show({
@@ -29,10 +32,14 @@ productControllers.controller('productListCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-        })
+          if (err.data.detail === "Signature has expired.") {
+            $scope.showAlertExpired()
+          } else {
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
+          })
+          }
       })
 
     $scope.loadMore = function() {
@@ -80,14 +87,42 @@ productControllers.controller('productListCtrl', [
        });
     }
 
+    $scope.goForward = function () {
+        var selected = $ionicTabsDelegate.selectedIndex();
+        if (selected != -1) {
+            $ionicTabsDelegate.select(selected + 1);
+        }
+    }
+
+    $scope.goBack = function () {
+        var selected = $ionicTabsDelegate.selectedIndex();
+        if (selected != -1 && selected != 0) {
+            $ionicTabsDelegate.select(selected - 1);
+        }
+    }
+
+    $scope.showActionsheet = function(product) {
+      $ionicActionSheet.show({
+        buttons: [
+          { text: 'Update <i class="icon ion-edit"></i>' },
+          { text: 'Delete <i class="icon ion-android-delete"></i>' },
+        ],
+        buttonClicked: function(index) {
+          if (index == 0) {
+            $state.go('tab.product-update', {id:product.id});
+          } else {
+            $state.go('tab.product-delete', {id:product.id});
+          }
+          return true;
+        },
+      });
+    };
+
 	  $scope.$on('$stateChangeSuccess', function(event, toState) {
-      debugger
       if (toState.name === 'tab.product-list') {
         productService.list()
           .$promise
             .then(function (res) {
-              debugger
-
               $scope.products = res
               $ionicLoading.hide();
             }, function (err) {
@@ -98,7 +133,6 @@ productControllers.controller('productListCtrl', [
             })
           })
       }
-
 	  })
 
 	}
@@ -120,6 +154,8 @@ productControllers.controller('productDetailCtrl', [
     template: '<ion-spinner icon="android" class="spinner-balanced"></ion-spinner>',
     noBackdrop: true
     });
+
+    $scope.storagecode = 'https://storage.googleapis.com/platxo-bi.appspot.com/product/code';
 
     productService.detail({id: $stateParams.id})
       .$promise
@@ -540,12 +576,12 @@ productControllers.controller('productUpdateCtrl', [
       .$promise
         .then(function (res) {
           $scope.product = res
-          $scope.product.category_name = $scope.product.extra.product_category_name;
-          $scope.product.type_name = $scope.product.extra.product_type_name;
-          $scope.product.location_name = $scope.product.extra.location_name;
-          $scope.product.section_name = $scope.product.extra.section_name;
-          $scope.product.brand_name = $scope.product.extra.brand_name;
-          $scope.product.tax_name = $scope.product.extra.tax_name;
+          $scope.product.category_name = $scope.product.product_category_name;
+          $scope.product.type_name = $scope.product.product_type_name;
+          $scope.product.location_name = $scope.product.location_name;
+          $scope.product.section_name = $scope.product.section_name;
+          $scope.product.brand_name = $scope.product.brand_name;
+          $scope.product.tax_name = $scope.product.tax_name;
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();

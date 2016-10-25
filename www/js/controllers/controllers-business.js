@@ -28,10 +28,14 @@ businessControllers.controller('businessListCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
+          if (err.data.detail === "Signature has expired.") {
+            $scope.showAlertExpired()
+          } else {
+            $ionicLoading.show({
+              template: 'Network Error',
+              scope: $scope
           })
+          }
         })
 
     $scope.selectBusiness = function(bs) {
@@ -56,19 +60,21 @@ businessControllers.controller('businessListCtrl', [
           })
     }
 
-    $scope.$on('$stateChangeSuccess', function() {
-	    businessService.list()
-        .$promise
-          .then(function (res) {
-            $scope.business = res
-            $ionicLoading.hide();
-          }, function (err) {
-            $ionicLoading.hide();
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
+    $scope.$on('$stateChangeSuccess', function(event, toState) {
+      if (toState.name === 'business-list') {
+        businessService.list()
+          .$promise
+            .then(function (res) {
+              $scope.business = res
+              $ionicLoading.hide();
+            }, function (err) {
+              $ionicLoading.hide();
+              $ionicLoading.show({
+                template: 'Network Error',
+                scope: $scope
             })
           })
+      }
 	  })
 
 	}
