@@ -1,8 +1,8 @@
 <ion-view view-title="Product Detail">
 	<ion-content padding="true">
     <div class="list card">
-      <div class="item item-body item-button-right">
-				{{product.name}}
+      <div class="item item-button-right">
+				<h2>{{product.name}}</h2>
 				<div class="buttons">
           <button ui-sref="tab.product-update({id: product.id})" class="button button-dark button-clear icon-center ion-edit"></ion-option-button>
           <button ui-sref="tab.product-delete({id: product.id})" class="button button-dark button-clear icon-center ion-android-delete"></ion-option-button>
@@ -15,16 +15,17 @@
       <div class="item item-text-wrap">
         <h2>Id: {{product.id}}</h2>
         <h2>Name: {{product.name}}</h2>
+				<h2>Category: {{product.product_category_name}}</h2>
+        <h2>Type: {{product.product_type_name}}</h2>
 				<h2>Brand: {{product.brand_name}}</h2>
         <h2>Description: {{product.description}}</h2>
         <h2>Supplier: {{product.supplier}}</h2>
         <h2>Location: {{product.location_name}}</h2>
         <h2>Section: {{product.section_name}}</h2>
-        <h2>Category: {{product.product_category_name}}</h2>
-        <h2>Type: {{product.product_type_name}}</h2>
         <h2>Price: {{product.retail_price | currency}}</h2>
 				<h2>Tax: {{product.tax_name }}</h2>
         <h2>Inventory: {{product.inventory }}</h2>
+				<h2>Stock: {{product.stock }}</h2>
         <h2>Quantity: {{product.quantity}}</h2>
       </div>
 			<div class="item item-divider">

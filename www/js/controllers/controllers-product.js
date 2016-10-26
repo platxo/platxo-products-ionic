@@ -147,11 +147,13 @@ productControllers.controller('productDetailCtrl', [
   '$scope',
   '$stateParams',
   '$ionicLoading',
+  '$cordovaPrinter',
   'productService',
   function(
     $scope,
     $stateParams,
     $ionicLoading,
+    $cordovaPrinter,
     productService
   )
   {
@@ -174,6 +176,15 @@ productControllers.controller('productDetailCtrl', [
             scope: $scope
           })
         });
+
+    $scope.print = function() {
+        if($cordovaPrinter.isAvailable()) {
+            $cordovaPrinter.print($scope.storagecode + '/' + $scope.product.id + '.png');
+        } else {
+            alert("Printing is not available on device");
+        }
+    }
+
 	}
 ]);
 
