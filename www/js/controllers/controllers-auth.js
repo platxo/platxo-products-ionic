@@ -80,7 +80,7 @@ authControllers.controller('loginController', [
           $state.go('business-list');
         },
         function (err) {
-          $scope.user = {}
+          $scope.user.password = "";
           $state.go('login');
         })
     }

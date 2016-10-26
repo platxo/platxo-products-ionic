@@ -42,10 +42,15 @@ productControllers.controller('productListCtrl', [
           }
       })
 
+    $scope.moreDataCanBeLoaded = true;
+
     $scope.loadMore = function() {
       productService.list()
         .$promise
           .then(function (res) {
+            if (res.length <= $scope.products.length) {
+              $scope.moreDataCanBeLoaded = false;
+            }
             $scope.products = res
             $scope.$broadcast('scroll.infiniteScrollComplete');
             $ionicLoading.hide();

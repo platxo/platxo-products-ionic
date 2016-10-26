@@ -23,11 +23,11 @@
 			</label>
       <label class="item item-input">
         <span class="input-label">Supply Price</span>
-        <input ng-model="product.supply_price" type="number" min="0" step="0.01">
+        <input ng-model="product.supply_price" string-to-number type="number" min="0" step="0.01">
       </label>
       <label class="item item-input">
         <span class="input-label">Retail Price</span>
-        <input ng-model="product.retail_price" type="number" min="0" step="0.01">
+        <input ng-model="product.retail_price" string-to-number type="number" min="0" step="0.01">
       </label>
 			<label class="item item-input item-select" ng-click="taxOpenModal()">
         <span class="input-label">Tax</span>
