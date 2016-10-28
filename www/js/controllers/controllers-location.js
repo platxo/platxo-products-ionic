@@ -30,11 +30,6 @@ locationControllers.controller('locationListCtrl', [
           $ionicLoading.hide();
           if (err.data.detail === "Signature has expired.") {
             $scope.showAlertExpired()
-          } else {
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-          })
           }
       })
 
@@ -47,11 +42,7 @@ locationControllers.controller('locationListCtrl', [
               $scope.$broadcast('scroll.refreshComplete');
     	  		}, function (err) {
               $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
-    	  		})
-          })
+            })
       }
 
     $scope.scan = function () {
@@ -76,11 +67,7 @@ locationControllers.controller('locationListCtrl', [
               $ionicLoading.hide();
             }, function (err) {
               $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
             })
-          })
       }
 	  })
 
@@ -113,10 +100,6 @@ locationControllers.controller('locationDetailCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
 	}
@@ -181,10 +164,6 @@ locationControllers.controller('locationUpdateCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
     $scope.update = function () {
@@ -230,10 +209,6 @@ locationControllers.controller('locationDeleteCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
     $scope.delete = function () {

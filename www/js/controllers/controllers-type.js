@@ -34,13 +34,8 @@ typeControllers.controller('typeListCtrl', [
           $ionicLoading.hide();
           if (err.data.detail === "Signature has expired.") {
             $scope.showAlertExpired()
-          } else {
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-          })
           }
-      })
+        })
 
       $scope.refresh = function () {
         typeService.list()
@@ -51,11 +46,7 @@ typeControllers.controller('typeListCtrl', [
               $scope.$broadcast('scroll.refreshComplete');
     	  		}, function (err) {
               $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
-    	  		})
-          })
+            })
       }
 
     $scope.scan = function () {
@@ -111,11 +102,10 @@ typeControllers.controller('typeListCtrl', [
               $ionicLoading.hide();
     	  		}, function (err) {
               $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
-    	  		})
-          })
+              if (err.data.detail === "Signature has expired.") {
+                $scope.showAlertExpired()
+              }
+            })
       }
 	  })
 
@@ -148,10 +138,6 @@ typeControllers.controller('typeDetailCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
 	}
@@ -189,11 +175,7 @@ typeControllers.controller('typeCreateCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
-      })
+        })
 
 	  $scope.type = {}
 
@@ -268,11 +250,7 @@ typeControllers.controller('typeUpdateCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
-      })
+        })
 
     typeService.detail({id: $stateParams.id})
       .$promise
@@ -282,10 +260,6 @@ typeControllers.controller('typeUpdateCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
     $scope.update = function () {
@@ -353,10 +327,6 @@ typeControllers.controller('typeDeleteCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
 

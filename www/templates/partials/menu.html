@@ -14,7 +14,9 @@
         <i class="icon ion-android-settings"></i>
         Settings
       </ion-item>
-      <logout-Directive></logout-Directive>
+      <ion-item on-touch="logout()" ng-click="popover.hide()"><i class="icon ion-power"></i>
+        Logout
+      </ion-item>
     </ion-list>
 
   </ion-content>

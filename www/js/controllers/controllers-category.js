@@ -34,11 +34,6 @@ categoryControllers.controller('categoryListCtrl', [
         $ionicLoading.hide();
         if (err.data.detail === "Signature has expired.") {
           $scope.showAlertExpired()
-        } else {
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-        })
         }
       })
 
@@ -51,11 +46,7 @@ categoryControllers.controller('categoryListCtrl', [
               $scope.$broadcast('scroll.refreshComplete');
     	  		}, function (err) {
               $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
-    	  		})
-          })
+            })
       }
 
     $scope.scan = function () {
@@ -111,11 +102,10 @@ categoryControllers.controller('categoryListCtrl', [
               $ionicLoading.hide();
     	  		}, function (err) {
               $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
-    	  		})
-          })
+              if (err.data.detail === "Signature has expired.") {
+                $scope.showAlertExpired()
+              }
+            })
       }
 	  })
 
@@ -148,10 +138,6 @@ categoryControllers.controller('categoryDetailCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
 	}
@@ -216,10 +202,6 @@ categoryControllers.controller('categoryUpdateCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
     $scope.update = function () {
@@ -265,10 +247,6 @@ categoryControllers.controller('categoryDeleteCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
     $scope.delete = function () {

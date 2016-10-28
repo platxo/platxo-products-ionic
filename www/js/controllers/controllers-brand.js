@@ -30,11 +30,6 @@ brandControllers.controller('brandListCtrl', [
           $ionicLoading.hide();
           if (err.data.detail === "Signature has expired.") {
             $scope.showAlertExpired()
-          } else {
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-          })
           }
       })
 
@@ -47,10 +42,6 @@ brandControllers.controller('brandListCtrl', [
               $scope.$broadcast('scroll.refreshComplete');
     	  		}, function (err) {
               $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
-    	  		})
           })
       }
 
@@ -76,10 +67,9 @@ brandControllers.controller('brandListCtrl', [
               $ionicLoading.hide();
             }, function (err) {
               $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
-            })
+              if (err.data.detail === "Signature has expired.") {
+                $scope.showAlertExpired()
+              }
           })
       }
 	  })
@@ -113,10 +103,6 @@ brandControllers.controller('brandDetailCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
 	}
@@ -181,10 +167,6 @@ brandControllers.controller('brandUpdateCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
     $scope.update = function () {
@@ -230,10 +212,6 @@ brandControllers.controller('brandDeleteCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
     $scope.delete = function () {

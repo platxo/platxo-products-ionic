@@ -30,13 +30,8 @@ sectionControllers.controller('sectionListCtrl', [
           $ionicLoading.hide();
           if (err.data.detail === "Signature has expired.") {
             $scope.showAlertExpired()
-          } else {
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-          })
           }
-      })
+        })
 
       $scope.refresh = function () {
         sectionService.list()
@@ -47,11 +42,7 @@ sectionControllers.controller('sectionListCtrl', [
               $scope.$broadcast('scroll.refreshComplete');
     	  		}, function (err) {
               $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
-    	  		})
-          })
+            })
       }
 
     $scope.scan = function () {
@@ -76,11 +67,7 @@ sectionControllers.controller('sectionListCtrl', [
               $ionicLoading.hide();
             }, function (err) {
               $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
             })
-          })
       }
 	  })
 
@@ -113,10 +100,6 @@ sectionControllers.controller('sectionDetailCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
 	}
@@ -154,11 +137,7 @@ sectionControllers.controller('sectionCreateCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
-      })
+        })
 
 	  $scope.section = {}
 
@@ -233,11 +212,7 @@ sectionControllers.controller('sectionUpdateCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
-      })
+        })
 
     sectionService.detail({id: $stateParams.id})
       .$promise
@@ -247,10 +222,6 @@ sectionControllers.controller('sectionUpdateCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
     $scope.update = function () {
@@ -318,10 +289,6 @@ sectionControllers.controller('sectionDeleteCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
 

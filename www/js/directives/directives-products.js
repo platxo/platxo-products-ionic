@@ -39,7 +39,7 @@ productsDirectives.directive('searchDirective', function () {
   }
 })
 
-productsDirectives.directive('expiredDirective', [ '$ionicPopup', '$rootScope', '$state', function ($ionicPopup, $rootScope, $state) {
+productsDirectives.directive('expiredDirective', [ '$ionicPopup', '$rootScope', '$state', '$ionicHistory', function ($ionicPopup, $rootScope, $state, $ionicHistory) {
   return {
     restrict: 'E',
     controller: function ($scope) {
@@ -50,13 +50,7 @@ productsDirectives.directive('expiredDirective', [ '$ionicPopup', '$rootScope', 
         });
 
         alertPopup.then(function(res) {
-          window.localStorage.removeItem('token');
-          window.localStorage.removeItem('user');
-          window.localStorage.removeItem('business');
-          $scope.user = {}
-          $state.go('login');
-          // $scope.logout()
-          // $location.path('/login');
+          $rootScope.logout()
         })
       }
     }

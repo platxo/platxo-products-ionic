@@ -30,11 +30,6 @@ businessControllers.controller('businessListCtrl', [
           $ionicLoading.hide();
           if (err.data.detail === "Signature has expired.") {
             $scope.showAlertExpired()
-          } else {
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-          })
           }
         })
 
@@ -53,10 +48,6 @@ businessControllers.controller('businessListCtrl', [
             $scope.$broadcast('scroll.refreshComplete');
           }, function (err) {
             $ionicLoading.hide();
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-            })
           })
     }
 
@@ -69,11 +60,7 @@ businessControllers.controller('businessListCtrl', [
               $ionicLoading.hide();
             }, function (err) {
               $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
             })
-          })
       }
 	  })
 
@@ -106,10 +93,6 @@ businessControllers.controller('businessDetailCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 	}
 ]);

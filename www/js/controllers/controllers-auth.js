@@ -26,6 +26,7 @@ authControllers.controller('signupController', [
                   $scope.user = {}
                   window.localStorage.setItem('token', JSON.stringify(res.token));
                   window.localStorage.setItem('user', JSON.stringify(res.user));
+                  $http.defaults.headers.common['Authorization'] = 'JWT ' + JSON.parse(localStorage.getItem("token"));
                   $state.go('business-list');
                 }, function (err) {
                   $scope.user = {}
@@ -41,12 +42,14 @@ authControllers.controller('signupController', [
 authControllers.controller('loginController', [
   '$scope',
   '$state',
+  '$http',
   '$rootScope',
   'loginService',
   'signupService',
   function(
     $scope,
     $state,
+    $http,
     $rootScope,
     loginService,
     signupService
@@ -60,8 +63,7 @@ authControllers.controller('loginController', [
       .$promise
         .then( function (res) {
           $scope.user = {}
-          $rootScope.token = res.token // add token in login
-          window.localStorage.setItem('token', JSON.stringify($rootScope.token));
+          window.localStorage.setItem('token', JSON.stringify(res.token));
           window.localStorage.setItem('user', JSON.stringify(res.user));
           if (!res.user.is_employee) {
             res.user.is_employee = true;
@@ -76,7 +78,7 @@ authControllers.controller('loginController', [
           } else {
             $rootScope.currentEmployee = res.user.employee;
           }
-          $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}// add headersJWT in login
+          $http.defaults.headers.common['Authorization'] = 'JWT ' + JSON.parse(localStorage.getItem("token"));
           $state.go('business-list');
         },
         function (err) {

@@ -4,7 +4,7 @@ authServices.service('signupService', [ '$resource', '$rootScope', function ($re
   var signupUrl = '/api/users/';
   return $resource($rootScope.version + $rootScope.baseUrl + signupUrl +':id/?format=json', {id: '@id'},{
     signup: { method: 'POST' },
-    update: { method: 'PUT', headers: $rootScope.headersJWT }
+    update: { method: 'PUT' }
   });
 }]);
 

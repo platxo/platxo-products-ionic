@@ -34,50 +34,38 @@ productControllers.controller('productListCtrl', [
           $ionicLoading.hide();
           if (err.data.detail === "Signature has expired.") {
             $scope.showAlertExpired()
-          } else {
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-          })
           }
       })
-
-    $scope.moreDataCanBeLoaded = true;
-
-    $scope.loadMore = function() {
-      productService.list()
-        .$promise
-          .then(function (res) {
-            if (res.length <= $scope.products.length) {
-              $scope.moreDataCanBeLoaded = false;
-            }
-            $scope.products = res
-            $scope.$broadcast('scroll.infiniteScrollComplete');
-            $ionicLoading.hide();
-          }, function (err) {
-            $ionicLoading.hide();
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
-          })
-        })
-  	};
 
     $scope.refresh = function () {
       productService.list()
         .$promise
           .then(function (res) {
-             $scope.products = res
-             $ionicLoading.hide();
-             $scope.$broadcast('scroll.refreshComplete');
+            $scope.products = res
+            $ionicLoading.hide();
+            $scope.$broadcast('scroll.refreshComplete');
           }, function (err) {
             $ionicLoading.hide();
-            $ionicLoading.show({
-              template: 'Network Error',
-              scope: $scope
+            if (err.data.detail === "Signature has expired.") {
+              $scope.showAlertExpired()
+            }
           })
-        })
     }
+
+    $scope.loadMore = function() {
+      productService.list()
+        .$promise
+          .then(function (res) {
+            $scope.products = res
+            $ionicLoading.hide();
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+          }, function (err) {
+            $ionicLoading.hide();
+            if (err.data.detail === "Signature has expired.") {
+              $scope.showAlertExpired()
+            }
+          })
+  	}
 
     $scope.scan = function () {
     $cordovaBarcodeScanner.scan().then( function (data) {
@@ -132,11 +120,10 @@ productControllers.controller('productListCtrl', [
               $ionicLoading.hide();
             }, function (err) {
               $ionicLoading.hide();
-              $ionicLoading.show({
-                template: 'Network Error',
-                scope: $scope
+              if (err.data.detail === "Signature has expired.") {
+                $scope.showAlertExpired()
+              }
             })
-          })
       }
 	  })
 
@@ -171,10 +158,6 @@ productControllers.controller('productDetailCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
     $scope.print = function() {
@@ -230,11 +213,7 @@ productControllers.controller('productCreateCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
-      })
+        })
 
     sectionService.list()
 	  	.$promise
@@ -243,11 +222,7 @@ productControllers.controller('productCreateCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
-      })
+        })
 
     brandService.list()
 	  	.$promise
@@ -256,11 +231,7 @@ productControllers.controller('productCreateCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
-      })
+        })
 
     categoryService.list()
       .$promise
@@ -269,11 +240,7 @@ productControllers.controller('productCreateCtrl', [
            $scope.categories = res;
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
         })
-      })
 
     typeService.list()
       .$promise
@@ -282,11 +249,7 @@ productControllers.controller('productCreateCtrl', [
            $scope.types = res;
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
         })
-      })
 
     taxService.list()
       .$promise
@@ -295,11 +258,7 @@ productControllers.controller('productCreateCtrl', [
            $scope.taxes = res;
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
         })
-      })
 
     $scope.product = {}
 
@@ -517,11 +476,7 @@ productControllers.controller('productUpdateCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
-      })
+        })
 
     sectionService.list()
 	  	.$promise
@@ -530,11 +485,7 @@ productControllers.controller('productUpdateCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
-      })
+        })
 
     brandService.list()
 	  	.$promise
@@ -543,11 +494,7 @@ productControllers.controller('productUpdateCtrl', [
           $ionicLoading.hide();
 	  		}, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-	  		})
-      })
+        })
 
     categoryService.list()
       .$promise
@@ -556,11 +503,7 @@ productControllers.controller('productUpdateCtrl', [
            $scope.categories = res;
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
         })
-      })
 
     typeService.list()
       .$promise
@@ -569,11 +512,7 @@ productControllers.controller('productUpdateCtrl', [
            $scope.types = res;
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
         })
-      })
 
     taxService.list()
       .$promise
@@ -582,11 +521,7 @@ productControllers.controller('productUpdateCtrl', [
            $scope.taxes = res;
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
         })
-      })
 
     productService.detail({id: $stateParams.id})
       .$promise
@@ -601,10 +536,6 @@ productControllers.controller('productUpdateCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
     $scope.update = function () {
@@ -811,10 +742,6 @@ productControllers.controller('productDeleteCtrl', [
           $ionicLoading.hide();
         }, function (err) {
           $ionicLoading.hide();
-          $ionicLoading.show({
-            template: 'Network Error',
-            scope: $scope
-          })
         });
 
     $scope.delete = function () {
