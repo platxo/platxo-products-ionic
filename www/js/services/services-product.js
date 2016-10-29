@@ -14,6 +14,6 @@ productServices.service('productService', [ '$resource', '$rootScope', function 
 productServices.service('taxService', [ '$resource', '$rootScope', function ($resource, $rootScope) {
   var taxUrl = '/api/taxes/';
   return $resource($rootScope.version + $rootScope.baseUrl + taxUrl +':id/?format=json', {id: '@id'},{
-    list: { method: 'GET' },
+    list: { method: 'GET', isArray:true},
   });
 }]);

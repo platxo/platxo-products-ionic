@@ -35,22 +35,15 @@ products.run(function($ionicPlatform, $rootScope, $state, $ionicHistory, $http) 
   $rootScope.baseUrl = 'platxo-bi.appspot.com';
   // $rootScope.version = 'http://localhost';
   // $rootScope.baseUrl = ':8080';
-  // if (localStorage.token) {
-  //   $rootScope.token = JSON.parse(localStorage.getItem("token"));
-  //   $rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
-  // }
-  //$rootScope.token = JSON.parse(localStorage.getItem("token")) || '';
-  //$rootScope.headersJWT = {'Authorization': 'JWT ' + $rootScope.token}
   $http.defaults.headers.common['Authorization'] = 'JWT ' + JSON.parse(localStorage.getItem("token"));
   $rootScope.currentUser = JSON.parse(localStorage.getItem("user")) || '';
   $rootScope.currentEmployee = $rootScope.currentUser.employee || '';
   $rootScope.currentBusiness = JSON.parse(localStorage.getItem("business")) || '';
 
   $rootScope.logout = function() {
-    // localStorage.removeItem('token');
-    // localStorage.removeItem('user');
-    // localStorage.removeItem('business');
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('business');
     $http.defaults.headers.common['Authorization'] = undefined;
     $ionicHistory.clearCache().then(function() {
       $ionicHistory.clearHistory();

@@ -274,7 +274,7 @@ productControllers.controller('productCreateCtrl', [
           })
 	  }
 
-    $scope.selectLocation= function(location) {
+    $scope.selectLocation = function(location) {
       $scope.product.location_name = location.name;
       $scope.product.location = location.id;
       $scope.locationModal.hide();
@@ -697,13 +697,6 @@ productControllers.controller('productUpdateCtrl', [
 
     $cordovaCamera.getPicture(options).then(function(imageData) {
       $scope.product.picture = "data:image/jpeg;base64," + imageData;
-      // productService.update($scope.product)
-      //   .$promise
-      //     .then(function (res) {
-      //       $state.go('tab.product-detail', {'id':$scope.product.id});
-      //     }, function (err) {
-      //
-      //     })
     }, function(err) {
           alert(JSON.stringify(err));
     });
