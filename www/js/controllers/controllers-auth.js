@@ -3,11 +3,13 @@ var authControllers = angular.module('authControllers', []);
 authControllers.controller('signupController', [
   '$scope',
   '$state',
+  '$http',
   'signupService',
   'loginService',
   function(
     $scope,
     $state,
+    $http,
     signupService,
     loginService
   )
@@ -71,7 +73,6 @@ authControllers.controller('loginController', [
               .$promise
                 .then( function (res) {
                   $rootScope.currentEmployee = res.employee;
-                  $state.go('business-list');
                 }, function (err) {
 
                 })
@@ -147,36 +148,6 @@ authControllers.controller('forgotPasswordController', [
 
 
 authControllers.controller('profileController', [
-  '$scope',
-  '$stateParams',
-  '$state',
-  function(
-    $scope,
-    $stateParams,
-    $state
-  )
-  {
-
-
-	}
-]);
-
-authControllers.controller('GoogleCtrl', [
-  '$scope',
-  '$stateParams',
-  '$state',
-  function(
-    $scope,
-    $stateParams,
-    $state
-  )
-  {
-
-
-	}
-]);
-
-authControllers.controller('FacebookCtrl', [
   '$scope',
   '$stateParams',
   '$state',

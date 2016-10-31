@@ -390,7 +390,7 @@ productControllers.controller('productCreateCtrl', [
       $scope.typeModal.hide();
     };
 
-    //Modal select type
+    //Modal select tax
     $ionicModal.fromTemplateUrl('templates/product/select-tax.html', {
       scope: $scope,
       controller: 'productCreateCtrl',
@@ -665,7 +665,7 @@ productControllers.controller('productUpdateCtrl', [
       $scope.typeModal.hide();
     };
 
-    //Modal select type
+    //Modal select tax
     $ionicModal.fromTemplateUrl('templates/product/select-tax.html', {
       scope: $scope,
       controller: 'productCreateCtrl',
