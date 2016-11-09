@@ -146,7 +146,6 @@ authControllers.controller('forgotPasswordController', [
 	}
 ]);
 
-
 authControllers.controller('profileController', [
   '$scope',
   '$stateParams',
